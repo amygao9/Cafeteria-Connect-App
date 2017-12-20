@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/FinalProject.iml" filepath="$PROJECT_DIR$/FinalProject.iml" />
       <module fileurl="file://C:\Users\Jove\AndroidStudioProjects\ICS4U1a201718_FinalProject_Janice\FinalProject2.iml" filepath="C:\Users\Jove\AndroidStudioProjects\ICS4U1a201718_FinalProject_Janice\FinalProject2.iml" />
       <module fileurl="file://$PROJECT_DIR$/ICS4U1a201718_FinalProject.iml" filepath="$PROJECT_DIR$/ICS4U1a201718_FinalProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ICS4U1a201718_FinalProject_Janice.iml" filepath="$PROJECT_DIR$/.idea/ICS4U1a201718_FinalProject_Janice.iml" />
