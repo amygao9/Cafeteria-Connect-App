@@ -19,6 +19,10 @@
         <activity
             android:name=".student_sign_in"
             android:label="@string/title_activity_student_sign_in"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
