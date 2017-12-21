@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +21,7 @@ public class student_sign_in extends AppCompatActivity {
     EditText editLastName;
     EditText editEmail;
     EditText editPassword;
-    Button btnSignIn;
+    TextView editLoginButtonText;
 
     // Initiate Firebase
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -35,9 +36,9 @@ public class student_sign_in extends AppCompatActivity {
         editLastName = (EditText) findViewById(R.id.LastName);
         editEmail = (EditText) findViewById(R.id.EmailAddress);
         editPassword = (EditText) findViewById(R.id.Password);
-        btnSignIn = (Button) findViewById(R.id.Signin_Button);
+        editLoginButtonText = (TextView) findViewById(R.id.Login_Button_Text);
 
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        editLoginButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final ProgressDialog mDialog = new ProgressDialog(student_sign_in.this);
@@ -49,11 +50,16 @@ public class student_sign_in extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mDialog.dismiss();
 
-                        User user = new User(editEmail.getText().toString(), editPassword.getText().toString());
-                        table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
+                        if (editEmail.getText().toString().substring(editEmail.getText().toString().length() - 12, editEmail.getText().toString().length() - 1).equals("@ycdsbk12.ca")) {
+                            User user = new User(editEmail.getText().toString(), editPassword.getText().toString());
+                            table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
 
-                        Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                        finish();
+                            Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(student_sign_in.this, "Please use your school email", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
