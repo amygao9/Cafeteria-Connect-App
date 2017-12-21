@@ -100,4 +100,5 @@
             android:textSize="30dp" />
 
     </android.support.v7.widget.CardView>
+
 </RelativeLayout>
