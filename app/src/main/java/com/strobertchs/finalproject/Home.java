@@ -34,7 +34,9 @@ public class Home extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -54,6 +56,12 @@ public class Home extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Set user for home header
+        View header = navigationView.getHeaderView(0);
+        fullName = (TextView)findViewById(R.id.fullName);
+        fullName.setText(savedUser.currentUser.getEmail());
+
     }
 
     @Override
@@ -109,3 +117,4 @@ public class Home extends AppCompatActivity
         return true;
     }
 }
+
