@@ -28,20 +28,25 @@
 
     <TextView
         android:id="@+id/Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="398dp"
+        android:layout_height="74dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="172dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/julius_sans_one"
         android:text="Cafeteria App"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        android:textColor="@color/cardview_light_background"
+        android:textColor="@android:color/black"
         android:textSize="50sp"
         android:textStyle="bold"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="152dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
