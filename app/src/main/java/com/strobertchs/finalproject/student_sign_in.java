@@ -1,6 +1,7 @@
 package com.strobertchs.finalproject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,8 +54,11 @@ public class student_sign_in extends AppCompatActivity {
                         if (editEmail.getText().toString().substring(editEmail.getText().toString().length() - 12, editEmail.getText().toString().length() - 1).equals("@ycdsbk12.ca")) {
                             User user = new User(editEmail.getText().toString(), editPassword.getText().toString());
                             table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
-
                             Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+
+                            Intent i = new Intent(student_sign_in.this, Home.class);
+                            savedUser.currentUser = user;
+                            startActivity(i);
                             finish();
                         }
                         else {
