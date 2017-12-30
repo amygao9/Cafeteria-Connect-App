@@ -51,20 +51,15 @@ public class student_sign_in extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mDialog.dismiss();
 
-                        if (editEmail.getText().toString().substring(editEmail.getText().toString().length() - 12, editEmail.getText().toString().length() - 1).equals("@ycdsbk12.ca")) {
-                            User user = new User(editEmail.getText().toString(), editPassword.getText().toString());
-                            table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
-                            Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                        User user = new User(editEmail.getText().toString(), editPassword.getText().toString());
+                        table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
+                        Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                            Intent i = new Intent(student_sign_in.this, Home.class);
-                            savedUser.currentUser = user;
-                            startActivity(i);
-                            finish();
+                        Intent i = new Intent(student_sign_in.this, Home.class);
+                        savedUser.currentUser = user;
+                        startActivity(i);
+                        finish();
                         }
-                        else {
-                            Toast.makeText(student_sign_in.this, "Please use your school email", Toast.LENGTH_SHORT).show();
-                        }
-                    }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
