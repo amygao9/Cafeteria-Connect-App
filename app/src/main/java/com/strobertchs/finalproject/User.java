@@ -2,26 +2,50 @@ package com.strobertchs.finalproject;
 
 public class User {
     private String email;
+    private String firstName;
+    private String lastName;
     private String password;
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public User(String uEmail, String uFirstName, String uLastName, String uPassword) {
+        email = uEmail;
+        firstName = uFirstName;
+        lastName = uLastName;
+        password = uPassword;
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String nEmail) {
+        email = nEmail;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String nFirstName) {
+        firstName = nFirstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String nLastName) {
+        lastName = nLastName;
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String nPassword) {
+        password = nPassword;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }

@@ -58,9 +58,9 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set user on home header
-        View header = navigationView.getHeaderView(0);
-        fullName = (TextView)findViewById(R.id.fullName);
-        fullName.setText(savedUser.currentUser.getEmail());
+        //View header = navigationView.getHeaderView(0);
+        //fullName = (TextView)findViewById(R.id.fullName);
+        //fullName.setText(savedUser.currentUser.getFullName());
 
     }
 
