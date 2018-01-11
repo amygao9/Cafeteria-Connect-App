@@ -23,6 +23,7 @@ public class student_sign_in extends AppCompatActivity {
     EditText editEmail;
     EditText editPassword;
     TextView editLoginButtonText;
+    User user;
 
     // Initiate Firebase
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -51,14 +52,29 @@ public class student_sign_in extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mDialog.dismiss();
 
-                        User user = new User(editEmail.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPassword.getText().toString());
-                        table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
-                        Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                        savedUser.currentUser = user;
+                        if(!editFirstName.getText().toString().equals("") && !editLastName.getText().toString().equals("")
+                                && editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11)
+                                .equals("ycdsbk12.ca") && !editPassword.getText().toString().equals("")) {
+                            user = new User(editEmail.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPassword.getText().toString());
+                            table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
+                            Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                            savedUser.currentUser = user;
 
-                        //Intent i = new Intent(student_sign_in.this, Home.class);
-                        //startActivity(i);
-                        finish();
+                            finish();
+                        }
+
+                        else if(editFirstName.getText().toString().equals("") || editLastName.getText().toString().equals("")) {
+                            Toast.makeText(student_sign_in.this, "Please fill out your name", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if(!editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11).equals("ycdsbk12.ca")) {
+                            Toast.makeText(student_sign_in.this, "Please use your school email", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if(editPassword.getText().toString().equals("")){
+                            Toast.makeText(student_sign_in.this, "Please enter a password", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
                     @Override
