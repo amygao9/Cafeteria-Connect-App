@@ -1,9 +1,12 @@
 package com.strobertchs.finalproject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,7 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.BaseAdapter;
+import android.widget.Toast;
+import com.squareup.picasso.Picasso;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,12 +32,24 @@ public class Home extends AppCompatActivity
 
     TextView fullName;
 
-    RecyclerView recyler_menu;
-    RecyclerView.LayoutManager layoutManager;
+    ListView menuListView;
+
+
+    MainMenuAdapter list_adapter;
+    String[] menuItems = new String[] { "Breakfast",
+            "Lunch",
+            "Desserts",
+            "Drinks"
+    };
+
+    public static int [] menuItemImages={R.drawable.breakfast,
+            R.drawable.lunch,
+            R.drawable.desserts,
+            R.drawable.drinks};
 
     //Initiate Firebase
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference menuCategory = database.getReference("Category");
+    //final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //final DatabaseReference menuCategory = database.getReference("Category");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +59,6 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -61,6 +73,11 @@ public class Home extends AppCompatActivity
         //View header = navigationView.getHeaderView(0);
         //fullName = (TextView)findViewById(R.id.fullName);
         //fullName.setText(savedUser.currentUser.getFullName());
+
+        list_adapter = new MainMenuAdapter(this,menuItems, menuItemImages);
+        menuListView = (ListView) findViewById(R.id.menuListView);
+        menuListView.setAdapter(list_adapter);
+
 
     }
 
@@ -116,5 +133,66 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public class MainMenuAdapter extends BaseAdapter{
+        String [] result;
+        Context context;
+        int [] imageId;
+        private LayoutInflater inflater=null;
+
+        public MainMenuAdapter(Home mainActivity, String[] prgmNameList, int[] prgmImages) {
+            result=prgmNameList;
+            context=mainActivity;
+            imageId=prgmImages;
+            inflater = ( LayoutInflater )context.
+                    getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return result.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public class Holder
+        {
+            TextView menuItemName;
+            ImageView menuImage;
+        }
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            Holder holder=new Holder();
+            final View view;
+            view = inflater.inflate(R.layout.menu_item, null);
+
+            holder.menuItemName=(TextView) view.findViewById(R.id.menuItemName);
+            holder.menuImage=(ImageView) view.findViewById(R.id.menuImage);
+
+            holder.menuItemName.setText(result[position]);
+            Picasso.with(context).load(imageId[position]).into(holder.menuImage);
+
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = null;
+                    i = new Intent(context, new SelectedMenu(position).getClass());
+                    startActivity(i);
+                }
+            });
+            return view;
+        }
+
+    }
+
 }
 
