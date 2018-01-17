@@ -31,5 +31,13 @@ public class FinalProject extends AppCompatActivity {
                 }
             }
         });
+
+        staffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view) {
+                Intent i = new Intent(FinalProject.this, cafeteria_sign_in.class);
+                startActivity(i);
+            }
+        });
     }
 }
