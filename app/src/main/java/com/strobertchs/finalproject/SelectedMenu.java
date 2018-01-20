@@ -7,6 +7,11 @@ public class SelectedMenu extends AppCompatActivity {
 
     int selectedMenu;
 
+    public SelectedMenu()
+    {
+
+    }
+
     public SelectedMenu(int selectedMenu)
     {
         this.selectedMenu = selectedMenu;

@@ -23,10 +23,16 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Cart1" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <!-- <activity android:name=".Cart1" /> -->
         <activity android:name=".Cart" />
         <activity android:name=".SelectedMenu"></activity>
+
+        <activity
+            android:name=".cafeteria_sign_in"
+            android:label="_sign_in"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>
