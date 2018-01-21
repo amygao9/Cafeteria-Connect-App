@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class Cart extends AppCompatActivity {
+public class CartPage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;

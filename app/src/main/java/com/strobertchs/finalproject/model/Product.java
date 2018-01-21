@@ -19,6 +19,7 @@ public class Product
      * The Product unit price (cost of a single item of the Product)
      */
     private double unitPrice;
+
     /**
      * The category of the product, the subclass
      */
@@ -28,10 +29,6 @@ public class Product
      */
     private int imageId;
 
-    /**
-     * Ingredients in the product
-     */
-    private String ingredients;
 
     /**
      * Create a new Product instance.
@@ -111,6 +108,15 @@ public class Product
     }
 
     /**
+     * Sets the category of the product
+     * @param category
+     */
+    public void setCategory(String category)
+    {
+        this.category = category;
+    }
+
+    /**
      * Gets the product's image ID
      * @return imageId - the product's image ID
      */
@@ -129,30 +135,12 @@ public class Product
     }
 
     /**
-     * Gets product's ingredients
-     * @return ingredients - the product's ingredients
-     */
-    public String getIngredients()
-    {
-        return ingredients;
-    }
-
-    /**
-     * Sets the product's ingredients
-     * @param ingredients - the product's new ingredients
-     */
-    public void setIngredients(String ingredients)
-    {
-        this.ingredients = ingredients;
-    }
-
-    /**
      * A description that includes the product id and unit price in the format i.e "ID: 5 Unit Price: $9.99"
      * @return the sub-description
      */
     public String getSubDescription()
     {
-        return "ID: " + productID + " Unit Price: " + this.getFormattedUnitPrice();
+        return "ID: " + productID;
     }
 }
 

@@ -25,7 +25,7 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar"/>
         <!-- <activity android:name=".Cart1" /> -->
-        <activity android:name=".Cart" />
+        <activity android:name=".CartPage" />
         <activity
             android:name=".SelectedMenu"
             android:label="SelectedMenu"
