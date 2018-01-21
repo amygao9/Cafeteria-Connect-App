@@ -127,6 +127,9 @@ public class Home extends AppCompatActivity
             i = new Intent(this, new CartPage().getClass());
             startActivity(i);
         }
+        else if (id == R.id.nav_orders)
+        {
+        }
         else if (id == R.id.nav_log_out)
         {
             savedUser.currentUser = null;

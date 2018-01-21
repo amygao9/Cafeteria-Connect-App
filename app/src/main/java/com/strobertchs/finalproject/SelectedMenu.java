@@ -68,7 +68,8 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -83,11 +84,14 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
     public void populateProductList() {
         if (selectedMenu.equals("Breakfast")) {
             mProdAdapter.addProduct(new Food("Hard Boiled Egg", 1.00, R.drawable.breakfast, "Egg"));
-        } else if (selectedMenu.equals("Lunch")) {
+        }
+        else if (selectedMenu.equals("Lunch")) {
             mProdAdapter.addProduct(new Food("Pepperoni Pizza", 85.99999, R.drawable.lunch, "Cheese, flour, pepperoni"));
-        } else if (selectedMenu.equals("Desserts")) {
+        }
+        else if (selectedMenu.equals("Desserts")) {
             mProdAdapter.addProduct(new Food("Chocolate Chip Cookie", 1.25, R.drawable.desserts, "Chocolate chips"));
-        } else if (selectedMenu.equals("Drinks")) {
+        }
+        else if (selectedMenu.equals("Drinks")) {
             mProdAdapter.addProduct(new Drinks("Coffee", 1.25, R.drawable.drinks, "Hot Drink"));
         }
     }
@@ -102,11 +106,15 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
             Intent i = null;
             i = new Intent(this, new Home().getClass());
             startActivity(i);
-        } else if (id == R.id.nav_cart) {
+        }
+        else if (id == R.id.nav_cart) {
             Intent i = null;
             i = new Intent(this, new CartPage().getClass());
             startActivity(i);
-        } else if (id == R.id.nav_log_out) {
+        }
+        else if (id == R.id.nav_orders) {
+        }
+        else if (id == R.id.nav_log_out) {
             savedUser.currentUser = null;
             Intent i = new Intent(this, new FinalProject().getClass());
             startActivity(i);
