@@ -3,9 +3,6 @@ package com.strobertchs.finalproject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,19 +18,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
-import com.squareup.picasso.Picasso;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
+import com.strobertchs.finalproject.model.Cart;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView fullName;
+    //TextView fullName;
 
     ListView menuListView;
-
+    public static Cart shoppingCart;
 
     MainMenuAdapter list_adapter;
     String[] menuItems = new String[] { "Breakfast",
@@ -78,6 +73,7 @@ public class Home extends AppCompatActivity
         menuListView = (ListView) findViewById(R.id.menuListView);
         menuListView.setAdapter(list_adapter);
 
+        shoppingCart = new Cart(0.13);
 
     }
 
@@ -119,14 +115,26 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_menu) {
-            // Handle the camera action
-        } else if (id == R.id.nav_cart) {
-
-        } else if (id == R.id.nav_orders) {
-
-        } else if (id == R.id.nav_log_out) {
-
+        if (id == R.id.nav_menu)
+        {
+            Intent i = null;
+            i = new Intent(this, new Home().getClass());
+            startActivity(i);
+        }
+        else if (id == R.id.nav_cart)
+        {
+            Intent i = null;
+            i = new Intent(this, new CartPage().getClass());
+            startActivity(i);
+        }
+        else if (id == R.id.nav_orders)
+        {
+        }
+        else if (id == R.id.nav_log_out)
+        {
+            savedUser.currentUser = null;
+            Intent i = new Intent(this, new FinalProject().getClass());
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -185,7 +193,8 @@ public class Home extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     Intent i = null;
-                    i = new Intent(context, new SelectedMenu(position).getClass());
+                    i = new Intent(context, SelectedMenu.class);
+                    i.putExtra("selectedMenu", result[position]);
                     startActivity(i);
                 }
             });
