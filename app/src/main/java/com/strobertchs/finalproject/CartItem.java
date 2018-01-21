@@ -1,5 +1,7 @@
 package com.strobertchs.finalproject;
 
+import com.strobertchs.finalproject.model.Product;
+
 public class CartItem {
     private Product product;
     private int quantity;

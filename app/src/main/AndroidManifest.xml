@@ -5,10 +5,10 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Cafeteria App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".FinalProject">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,10 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <!-- <activity android:name=".Cart1" /> -->
         <activity android:name=".Cart" />
-        <activity android:name=".SelectedMenu"></activity>
+        <activity
+            android:name=".SelectedMenu"
+            android:label="SelectedMenu"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".cafeteria_sign_in"

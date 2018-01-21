@@ -30,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView fullName;
+    //TextView fullName;
 
     ListView menuListView;
 
@@ -119,14 +119,27 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_menu) {
-            // Handle the camera action
-        } else if (id == R.id.nav_cart) {
+        if (id == R.id.nav_menu)
+        {
+            Intent i = null;
+            i = new Intent(this, new Home().getClass());
+            startActivity(i);
+        }
+        else if (id == R.id.nav_cart)
+        {
+            Intent i = null;
+            i = new Intent(this, new Cart().getClass());
+            startActivity(i);
+        }
+        else if (id == R.id.nav_orders)
+        {
 
-        } else if (id == R.id.nav_orders) {
-
-        } else if (id == R.id.nav_log_out) {
-
+        }
+        else if (id == R.id.nav_log_out)
+        {
+            savedUser.currentUser = null;
+            Intent i = new Intent(this, new FinalProject().getClass());
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
