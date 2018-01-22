@@ -21,6 +21,10 @@ import com.strobertchs.finalproject.R;
  * Created by Amy0127 on 2018-01-21.
  */
 class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+    public interface OnItemClickListener {
+        void onItemClick(Product item);
+    }
     public TextView txt_cart_name,txt_price;
     private ItemClickListener itemClickListener;
 
@@ -59,10 +63,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     @Override
     public void onBindViewHolder(CartViewHolder holder, int position) {
-        this.position = position;
-        TextDrawable drawable = TextDrawable.builder()
-                .buildRound(""+listData.get(position).getQuantity(), Color.RED);
-        holder.img_cart_count.setImageDrawable(drawable);
+
+        //TextDrawable drawable = TextDrawable.builder()
+         //       .buildRound(""+listData.get(position).getQuantity(), Color.RED);
+        //holder.img_cart_count.setImageDrawable(drawable);
 
         Locale locale = new Locale("en","US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);

@@ -51,6 +51,9 @@ public class CartPage extends AppCompatActivity {
 
     }
     private void loadListFood() {
+        cart = new Database(this).getCarts();
+        adapter = new CartAdapter(cart.this);
+        recyclerView.setAdapter(adapter);
 
     }
 
