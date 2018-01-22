@@ -20,7 +20,7 @@ public class CartPage extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
 
     FirebaseDatabase database;
-    DatabaseReference request;
+    DatabaseReference order;
 
     TextView txtTotalPrice;
     Button btnPlace;
@@ -36,7 +36,7 @@ public class CartPage extends AppCompatActivity {
 
         //Firebase
         database = FirebaseDatabase.getInstance();
-        request=database.getReference("Requests");
+        order = database.getReference("Order");
 
         //Init
         recyclerView = (RecyclerView)findViewById(R.id.listCart);

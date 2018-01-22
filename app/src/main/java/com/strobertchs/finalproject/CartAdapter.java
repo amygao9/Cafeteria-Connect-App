@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import com.strobertchs.finalproject.Product;
+import com.strobertchs.finalproject.model.Product;
 import com.strobertchs.finalproject.R;
 
 /**
@@ -26,7 +26,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         void onItemClick(Product item);
     }
     public TextView txt_cart_name,txt_price;
-    private ItemClickListener itemClickListener;
+    private OnItemClickListener itemClickListener;
 
     private ArrayList<Product> listData = new ArrayList<>();
     private Context context;

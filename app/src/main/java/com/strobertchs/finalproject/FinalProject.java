@@ -29,7 +29,10 @@ public class FinalProject extends AppCompatActivity {
         final String firstName = Paper.book().read(savedUser.FIRSTNAME);
         final String lastName = Paper.book().read(savedUser.LASTNAME);
         final String username = Paper.book().read(savedUser.USER);
-        final String password = Paper.book().read(savedUser.PASSWORD);
+
+        // Initiate Firebase
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_user = database.getReference("User");
 
         studentButton = (Button) findViewById(R.id.studentButton);
         staffButton = (Button) findViewById(R.id.staffButton);
@@ -37,11 +40,35 @@ public class FinalProject extends AppCompatActivity {
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog mDialog = new ProgressDialog(FinalProject.this);
+                mDialog.setMessage("Please wait a moment...");
+                mDialog.show();
                 if (firstName != null && lastName != null) {
-                    Intent i = new Intent(FinalProject.this, Home.class);
-                    startActivity(i);
+                    if(!firstName.isEmpty() && !lastName.isEmpty()) {
+                        table_user.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.child(username).exists()) {
+                                    mDialog.dismiss();
+                                    Intent i = new Intent(FinalProject.this, Home.class);
+                                    startActivity(i);
+                                }
+                                else {
+                                    mDialog.dismiss();
+                                    Intent i = new Intent(FinalProject.this, student_sign_in.class);
+                                    startActivity(i);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
                 else{
+                    mDialog.dismiss();
                     Intent i = new Intent(FinalProject.this, student_sign_in.class);
                     startActivity(i);
                 }
@@ -53,39 +80,6 @@ public class FinalProject extends AppCompatActivity {
             public void onClick (View view) {
                 Intent i = new Intent(FinalProject.this, cafeteria_sign_in.class);
                 startActivity(i);
-            }
-        });
-
-        if(firstName != null && lastName != null)
-        {
-            if(!firstName.isEmpty() && !lastName.isEmpty()) {
-                autoLogin(username);
-            }
-        }
-    }
-
-    private void autoLogin(final String username) {
-        // Initiate Firebase
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user = database.getReference("User");
-
-        final ProgressDialog mDialog = new ProgressDialog(FinalProject.this);
-        mDialog.setMessage("Please wait a moment...");
-        mDialog.show();
-
-        table_user.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(username).exists()) {
-                    mDialog.dismiss();
-                    Intent i = new Intent(FinalProject.this, Home.class);
-                    startActivity(i);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
