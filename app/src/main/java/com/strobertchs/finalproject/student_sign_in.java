@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import io.paperdb.Paper;
+
 public class student_sign_in extends AppCompatActivity {
 
     EditText editFirstName;
@@ -25,14 +27,16 @@ public class student_sign_in extends AppCompatActivity {
     TextView editLoginButtonText;
     User user;
 
-    // Initiate Firebase
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference table_user = database.getReference("User");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_sign_in);
+        //Initiate Paper
+        Paper.init(this);
+
+        // Initiate Firebase
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_user = database.getReference("User");
 
         editFirstName = (EditText) findViewById(R.id.Name);
         editLastName = (EditText) findViewById(R.id.LastName);
@@ -58,9 +62,16 @@ public class student_sign_in extends AppCompatActivity {
                             user = new User(editEmail.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPassword.getText().toString());
                             table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
                             Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                            savedUser.currentUser = user;
 
-                            finish();
+                            // Save user and password
+                            savedUser.currentUser = user;
+                            Paper.book().write(savedUser.FIRSTNAME, editFirstName.getText().toString());
+                            Paper.book().write(savedUser.LASTNAME, editLastName.getText().toString());
+                            Paper.book().write(savedUser.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
+                            Paper.book().write(savedUser.PASSWORD, editPassword.getText().toString());
+
+                            Intent i = new Intent(student_sign_in.this, Home.class);
+                            startActivity(i);
                         }
 
                         else if(editFirstName.getText().toString().equals("") || editLastName.getText().toString().equals("")) {

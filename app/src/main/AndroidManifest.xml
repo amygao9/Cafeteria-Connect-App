@@ -23,19 +23,21 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!-- <activity android:name=".Cart1" /> -->
         <activity android:name=".CartPage" />
         <activity
             android:name=".SelectedMenu"
             android:label="SelectedMenu"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".cafeteria_sign_in"
             android:label="_sign_in"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".ServerOrder"
+            android:label="ServerOrder" />
+        <activity android:name=".ServerOrderLay"></activity>
     </application>
 
 </manifest>

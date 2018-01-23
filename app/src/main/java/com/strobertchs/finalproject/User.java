@@ -5,12 +5,14 @@ public class User {
     private String firstName;
     private String lastName;
     private String password;
+    private String fullName;
 
     public User(String uEmail, String uFirstName, String uLastName, String uPassword) {
         email = uEmail;
         firstName = uFirstName;
         lastName = uLastName;
         password = uPassword;
+        fullName = lastName + "," + firstName;
     }
 
     public String getEmail() {
@@ -46,6 +48,7 @@ public class User {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return fullName;
     }
+
 }
