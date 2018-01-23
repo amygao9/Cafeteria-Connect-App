@@ -70,7 +70,8 @@ public class student_sign_in extends AppCompatActivity {
                             Paper.book().write(savedUser.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
                             Paper.book().write(savedUser.PASSWORD, editPassword.getText().toString());
 
-                            finish();
+                            Intent i = new Intent(student_sign_in.this, Home.class);
+                            startActivity(i);
                         }
 
                         else if(editFirstName.getText().toString().equals("") || editLastName.getText().toString().equals("")) {
