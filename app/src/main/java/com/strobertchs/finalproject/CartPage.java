@@ -4,14 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.strobertchs.finalproject.Adapters.CartAdapter;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class CartPage extends AppCompatActivity {

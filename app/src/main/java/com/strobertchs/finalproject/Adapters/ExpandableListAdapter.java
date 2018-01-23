@@ -1,4 +1,4 @@
-package com.strobertchs.finalproject;
+package com.strobertchs.finalproject.Adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.strobertchs.finalproject.R;
 
 import java.util.HashMap;
 import java.util.List;
