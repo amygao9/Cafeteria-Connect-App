@@ -20,6 +20,7 @@ import java.util.List;
  * Created by jenny on 2018-01-21.
  */
 
+
 public class DialogProduct extends DialogFragment{
 
     private Cart dCart;
@@ -153,3 +154,4 @@ public class DialogProduct extends DialogFragment{
     }
 
 }
+

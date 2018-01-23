@@ -81,8 +81,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     }
 
 
-    @Override
-    public void onClick(View view) {
+    //@Override
+    //public void onClick(View view) {
 
-    }
+    //}
 }
