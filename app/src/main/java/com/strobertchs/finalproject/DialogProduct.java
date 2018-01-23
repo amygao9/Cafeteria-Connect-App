@@ -23,6 +23,8 @@ import java.util.List;
 
 public class DialogProduct extends DialogFragment{
 
+
+
     private Cart dCart;
     private Context mContext;
     private CartAdapter cAdapter;
