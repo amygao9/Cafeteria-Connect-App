@@ -6,8 +6,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/foodback"
     android:fitsSystemWindows="true"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.strobertchs.finalproject.SelectedMenu">
+    android:id="@+id/drawer_layout"
+    tools:openDrawer="start">
+
+    <!-- app:layout_behavior="@string/appbar_scrolling_view_behavior" -->
+
 
     <include
     layout="@layout/app_bar_home"

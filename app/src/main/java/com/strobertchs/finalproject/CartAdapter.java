@@ -14,12 +14,12 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import com.strobertchs.finalproject.Product;
+import com.strobertchs.finalproject.model.Product;
 import com.strobertchs.finalproject.R;
 
 /**
  * Created by Amy0127 on 2018-01-21.
- */
+ *
 class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public TextView txt_cart_name,txt_price;
     private ItemClickListener itemClickListener;
@@ -81,4 +81,4 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void onClick(View view) {
 
     }
-}
+}*/

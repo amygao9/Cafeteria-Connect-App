@@ -39,6 +39,10 @@ public class Drinks extends Product {
         this.drinkType = drinkType;
     }
 
+    /**
+     * Gives subdescription specific to drink - overrides method from super class
+     * @return String that includes Product ID and drink type
+     */
     public String getSubDescription()
     {
         return "ID: " + this.getProductID() + "/n" + this.drinkType;

@@ -27,7 +27,7 @@ public class CartPage extends AppCompatActivity {
 
     ArrayList<Order> cart = new ArrayList<>();
 
-    CartAdapter adapter;
+    //CartAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

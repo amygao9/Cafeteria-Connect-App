@@ -37,7 +37,7 @@ public class Home extends AppCompatActivity
             "Drinks"
     };
 
-    public static int [] menuItemImages={R.drawable.breakfast,
+    private static int [] menuItemImages={R.drawable.breakfast,
             R.drawable.lunch,
             R.drawable.desserts,
             R.drawable.drinks};
@@ -69,7 +69,7 @@ public class Home extends AppCompatActivity
         //fullName = (TextView)findViewById(R.id.fullName);
         //fullName.setText(savedUser.currentUser.getFullName());
 
-        list_adapter = new MainMenuAdapter(this,menuItems, menuItemImages);
+        list_adapter = new MainMenuAdapter(this, menuItems, menuItemImages);
         menuListView = (ListView) findViewById(R.id.menuListView);
         menuListView.setAdapter(list_adapter);
 
@@ -143,27 +143,27 @@ public class Home extends AppCompatActivity
     }
 
     public class MainMenuAdapter extends BaseAdapter{
-        String [] result;
+        String [] menuItemList;
         Context context;
         int [] imageId;
         private LayoutInflater inflater=null;
 
-        public MainMenuAdapter(Home mainActivity, String[] prgmNameList, int[] prgmImages) {
-            result=prgmNameList;
+        public MainMenuAdapter(Home mainActivity, String[] mList, int[] mImageIds) {
+            menuItemList=mList;
             context=mainActivity;
-            imageId=prgmImages;
+            imageId=mImageIds;
             inflater = ( LayoutInflater )context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
         public int getCount() {
-            return result.length;
+            return menuItemList.length;
         }
 
         @Override
         public Object getItem(int position) {
-            return position;
+            return menuItemList[position];
         }
 
         @Override
@@ -185,7 +185,7 @@ public class Home extends AppCompatActivity
             holder.menuItemName=(TextView) view.findViewById(R.id.menuItemName);
             holder.menuImage=(ImageView) view.findViewById(R.id.menuImage);
 
-            holder.menuItemName.setText(result[position]);
+            holder.menuItemName.setText(menuItemList[position]);
             Picasso.with(context).load(imageId[position]).into(holder.menuImage);
 
 
@@ -194,7 +194,7 @@ public class Home extends AppCompatActivity
                 public void onClick(View v) {
                     Intent i = null;
                     i = new Intent(context, SelectedMenu.class);
-                    i.putExtra("selectedMenu", result[position]);
+                    i.putExtra("selectedMenu", menuItemList[position]);
                     startActivity(i);
                 }
             });

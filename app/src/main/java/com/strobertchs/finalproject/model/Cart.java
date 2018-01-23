@@ -74,6 +74,44 @@ public class Cart
     }
 
     /**
+     * Find the cartItem by product name
+     * @param pName - name of the product in the cartItem
+     * @return cartItem
+     */
+    public CartItem findCartItem(String pName)
+    {
+        CartItem cartItem = null;
+        for (int i = 0; i < getSize(); i ++)
+        {
+            cartItem = cartItems.get(i);
+            if (cartItem.getProductName().equals(pName))
+            {
+                break;
+            }
+        }
+        return cartItem;
+    }
+
+    /**
+     * Deletes cartItme
+     * @param dItem - the item that should be deleted
+     */
+    public void deleteCartItem(CartItem dItem) {
+        for (int i = 0; i < getSize(); i++) {
+            CartItem cartItem = cartItems.get(i);
+            if (cartItem.getProductName().equals(dItem.getProductName())) {
+                int totalQuantity = cartItem.getQuantity() - dItem.getQuantity();
+                if(totalQuantity==0){
+                    this.cartItems.remove(i);
+                }else {
+                    cartItem.setQuantity(totalQuantity);
+                }
+                break;
+            }
+        }
+    }
+
+    /**
      * Get the number of CartItems in the CartPage
      * @return cartItems.size() - the number of CartItems in the CartPage
      */

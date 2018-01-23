@@ -1,5 +1,6 @@
 package com.strobertchs.finalproject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -31,8 +32,9 @@ import java.util.List;
 
 public class SelectedMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    String selectedMenu;
+    String selectedMenus;
     private ProductAdapter mProdAdapter;
+    ListView listProduct;
 
 
     public SelectedMenu() {
@@ -43,10 +45,10 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_menu);
-        this.selectedMenu = getIntent().getStringExtra("selectedMenu");
+        this.selectedMenus = getIntent().getStringExtra("selectedMenu");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(selectedMenu);
+        toolbar.setTitle(selectedMenus);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -57,10 +59,14 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mProdAdapter = new ProductAdapter(this);
-        ListView listProduct = (ListView) findViewById(R.id.selectedMenuList);
+        List<Product> pList = populateProductList(); //initialize the list of products
+        mProdAdapter = new ProductAdapter(this, pList);
+
+        //listProduct = (ListView) findViewById(R.id.selectedMenuList);
+        View view = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.content_selection_menu, null);
+        listProduct = (ListView)view.findViewById(R.id.selectedMenuList);
         listProduct.setAdapter(mProdAdapter);
-        populateProductList(); //initialize the list of products
+        //mProdAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -81,19 +87,21 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void populateProductList() {
-        if (selectedMenu.equals("Breakfast")) {
-            mProdAdapter.addProduct(new Food("Hard Boiled Egg", 1.00, R.drawable.breakfast, "Egg"));
+    public List<Product> populateProductList() {
+        List<Product> pList = new ArrayList<Product>();
+        if (selectedMenus.equals("Breakfast")) {
+            pList.add(new Food("Hard Boiled Egg", 1.00, R.drawable.breakfast, "Egg"));
         }
-        else if (selectedMenu.equals("Lunch")) {
-            mProdAdapter.addProduct(new Food("Pepperoni Pizza", 85.99999, R.drawable.lunch, "Cheese, flour, pepperoni"));
+        else if (selectedMenus.equals("Lunch")) {
+            pList.add(new Food("Pepperoni Pizza", 85.99999, R.drawable.lunch, "Cheese, flour, pepperoni"));
         }
-        else if (selectedMenu.equals("Desserts")) {
-            mProdAdapter.addProduct(new Food("Chocolate Chip Cookie", 1.25, R.drawable.desserts, "Chocolate chips"));
+        else if (selectedMenus.equals("Desserts")) {
+            pList.add(new Food("Chocolate Chip Cookie", 1.25, R.drawable.desserts, "Chocolate chips"));
         }
-        else if (selectedMenu.equals("Drinks")) {
-            mProdAdapter.addProduct(new Drinks("Coffee", 1.25, R.drawable.drinks, "Hot Drink"));
+        else if (selectedMenus.equals("Drinks")) {
+            pList.add(new Drinks("Coffee", 1.25, R.drawable.drinks, "Hot Drink"));
         }
+        return pList;
     }
 
 
@@ -113,6 +121,7 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
             startActivity(i);
         }
         else if (id == R.id.nav_orders) {
+
         }
         else if (id == R.id.nav_log_out) {
             savedUser.currentUser = null;
@@ -129,30 +138,33 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
     public class ProductAdapter extends BaseAdapter {
 
         Context context;
-        List<Product> productList = new ArrayList<Product>();
+        List<Product> productList;
 
-        public ProductAdapter(SelectedMenu mainActivity) {
-            context = mainActivity;
+        public ProductAdapter(SelectedMenu pActivity, List<Product> pList) {
+            context = pActivity;
+            productList = pList;
         }
 
-
+        @Override
         public int getCount() {
             return productList.size();
         }
 
-        public Product getItem(int whichItem) {
+        @Override
+        public Object getItem(int whichItem) {
             return productList.get(whichItem);
         }
 
+        @Override
         public long getItemId(int whichItem) {
             return whichItem;
         }
 
-        public void addProduct(Product prod) {
+/*        public void addProduct(Product prod) {
             productList.add(prod);
             notifyDataSetChanged();
         }
-
+*/
         public class Holder {
             TextView txtName;
             TextView txtPrice;
@@ -160,41 +172,34 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         }
 
         @Override
-        public View getView(final int whichItem, View view, ViewGroup viewGroup) {
+        public View getView(final int whichItem, View convertView, ViewGroup viewGroup) {
             Holder holder = new Holder();
-            // Implement this method next
+            final View view;
 
-            // Has view been inflated already
-            if (view == null) {
-
-                // If not, do so here
-                // First create a LayoutInflater
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                // Now instantiate view using inflater.inflate
-                // using the listitem layout
-                view = inflater.inflate(R.layout.product, viewGroup, false);
-                // The false parameter is necessary
-                // because of the way that we want to use productitem
-
-            }// End if
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.product, null);
 
             holder.txtName = (TextView) view.findViewById(R.id.name);
             holder.txtPrice = (TextView) view.findViewById(R.id.unitPrice);
             holder.prodImage = (ImageView) view.findViewById(R.id.imageId);
 
-            // make the addToCart a clickable action
-            view.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), productList.get(whichItem).getName() + " added to cart", Toast.LENGTH_SHORT).show();
-                    Home.shoppingCart.addCartItem(new CartItem(productList.get(whichItem), 1));
-                }
-            });
-
             Product tempProduct = productList.get(whichItem);
             holder.txtName.setText(tempProduct.getName());
             holder.txtPrice.setText(tempProduct.getFormattedUnitPrice());
             Picasso.with(context).load(tempProduct.getImageId()).into(holder.prodImage);
+
+            // make the addToCart a clickable action
+            view.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    //Toast.makeText(getApplicationContext(), productList.get(whichItem).getName() + " added to cart", Toast.LENGTH_SHORT).show();
+                    //Home.shoppingCart.addCartItem(new CartItem(productList.get(whichItem), 1));
+                    DialogProduct dialog = new DialogProduct();
+                    dialog.sendProduct(productList.get(whichItem));
+                    dialog.setContext(context);
+                    // Create the dialog
+                    dialog.show(getFragmentManager(), "123");
+                }
+            });
 
 
             return view;
