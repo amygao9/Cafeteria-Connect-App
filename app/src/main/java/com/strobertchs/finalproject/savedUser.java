@@ -8,4 +8,6 @@ public class savedUser {
     public static final String USER = "";
     public static final String PASSWORD = "";
 
+    public static final String ORDERNUM = "1600";
+
 }
