@@ -68,7 +68,6 @@ public class student_sign_in extends AppCompatActivity {
                             Paper.book().write(savedUser.FIRSTNAME, editFirstName.getText().toString());
                             Paper.book().write(savedUser.LASTNAME, editLastName.getText().toString());
                             Paper.book().write(savedUser.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
-                            Paper.book().write(savedUser.PASSWORD, editPassword.getText().toString());
 
                             Intent i = new Intent(student_sign_in.this, Home.class);
                             startActivity(i);
