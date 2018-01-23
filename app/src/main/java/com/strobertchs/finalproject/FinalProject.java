@@ -30,45 +30,19 @@ public class FinalProject extends AppCompatActivity {
         final String lastName = Paper.book().read(savedUser.LASTNAME);
         final String username = Paper.book().read(savedUser.USER);
 
-        // Initiate Firebase
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user = database.getReference("User");
-
         studentButton = (Button) findViewById(R.id.studentButton);
         staffButton = (Button) findViewById(R.id.staffButton);
 
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog = new ProgressDialog(FinalProject.this);
-                mDialog.setMessage("Please wait a moment...");
-                mDialog.show();
                 if (firstName != null && lastName != null) {
-                    if(!firstName.isEmpty() && !lastName.isEmpty()) {
-                        table_user.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.child(username).exists()) {
-                                    mDialog.dismiss();
-                                    Intent i = new Intent(FinalProject.this, Home.class);
-                                    startActivity(i);
-                                }
-                                else {
-                                    mDialog.dismiss();
-                                    Intent i = new Intent(FinalProject.this, student_sign_in.class);
-                                    startActivity(i);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
+                    if (!firstName.isEmpty() && !lastName.isEmpty()) {
+                        Intent i = new Intent(FinalProject.this, Home.class);
+                        startActivity(i);
                     }
                 }
-                else{
-                    mDialog.dismiss();
+                else {
                     Intent i = new Intent(FinalProject.this, student_sign_in.class);
                     startActivity(i);
                 }
@@ -82,5 +56,22 @@ public class FinalProject extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+        if(firstName != null && lastName != null)
+        {
+            final ProgressDialog mDialog = new ProgressDialog(FinalProject.this);
+            mDialog.setMessage("Please wait a moment...");
+            mDialog.show();
+            if(!firstName.isEmpty() && !lastName.isEmpty()) {
+                mDialog.dismiss();
+                Intent i = new Intent(FinalProject.this, Home.class);
+                startActivity(i);
+            }
+        }
     }
 }
+
+
+
+
