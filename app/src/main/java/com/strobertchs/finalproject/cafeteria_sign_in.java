@@ -25,7 +25,7 @@ public class cafeteria_sign_in extends AppCompatActivity {
             public void onClick(View view) {
                 if(loginCode.getText().toString().equals("0000")) {
                     Toast.makeText(cafeteria_sign_in.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(cafeteria_sign_in.this, ServerOverLay.class);
+                    Intent i = new Intent(cafeteria_sign_in.this, ServerOrderLay.class);
                     startActivity(i);
                 }
 
