@@ -18,7 +18,9 @@ import com.strobertchs.finalproject.R;
 
 /**
  * Created by Amy0127 on 2018-01-21.
- *
+ */
+
+/**
 class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public interface OnItemClickListener {

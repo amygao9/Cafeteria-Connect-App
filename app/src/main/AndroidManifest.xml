@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".student_sign_in"
+            android:name=".StudentSignIn"
             android:label="@string/title_activity_student_sign_in"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -31,7 +31,7 @@
             android:label="SelectedMenu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".cafeteria_sign_in"
+            android:name=".CafeteriaSignIn"
             android:label="_sign_in"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

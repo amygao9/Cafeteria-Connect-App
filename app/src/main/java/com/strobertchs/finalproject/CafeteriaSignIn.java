@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class cafeteria_sign_in extends AppCompatActivity {
+public class CafeteriaSignIn extends AppCompatActivity {
     TextView signInButton;
     EditText loginCode;
 
@@ -24,13 +24,13 @@ public class cafeteria_sign_in extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(loginCode.getText().toString().equals("0000")) {
-                    Toast.makeText(cafeteria_sign_in.this, "Sign in successful", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(cafeteria_sign_in.this, ServerOrderLay.class);
+                    Toast.makeText(CafeteriaSignIn.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(CafeteriaSignIn.this, ServerOrderLay.class);
                     startActivity(i);
                 }
 
                 else{
-                    Toast.makeText(cafeteria_sign_in.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CafeteriaSignIn.this, "Please try again", Toast.LENGTH_SHORT).show();
                 }
             }
         });
