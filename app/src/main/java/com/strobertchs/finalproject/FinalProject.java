@@ -58,17 +58,17 @@ public class FinalProject extends AppCompatActivity {
         });
 
 
-        if(firstName != null && lastName != null)
-        {
-            final ProgressDialog mDialog = new ProgressDialog(FinalProject.this);
-            mDialog.setMessage("Please wait a moment...");
-            mDialog.show();
-            if(!firstName.isEmpty() && !lastName.isEmpty()) {
-                mDialog.dismiss();
-                Intent i = new Intent(FinalProject.this, Home.class);
-                startActivity(i);
-            }
-        }
+        //if(firstName != null && lastName != null)
+        //{
+        //    final ProgressDialog mDialog = new ProgressDialog(FinalProject.this);
+        //    mDialog.setMessage("Please wait a moment...");
+        //    mDialog.show();
+        //    if(!firstName.isEmpty() && !lastName.isEmpty()) {
+        //        mDialog.dismiss();
+        //        Intent i = new Intent(FinalProject.this, Home.class);
+        //        startActivity(i);
+        //    }
+        //}
     }
 }
 
