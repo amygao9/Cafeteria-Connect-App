@@ -67,7 +67,7 @@ public class Home extends AppCompatActivity
         //Set user on home header
         //View header = navigationView.getHeaderView(0);
         //fullName = (TextView)findViewById(R.id.fullName);
-        //fullName.setText(savedUser.currentUser.getFullName());
+        //fullName.setText(SavedUsers.currentUser.getFullName());
 
         list_adapter = new MainMenuAdapter(this, menuItems, menuItemImages);
         menuListView = (ListView) findViewById(R.id.menuListView);
@@ -132,7 +132,7 @@ public class Home extends AppCompatActivity
         }
         else if (id == R.id.nav_log_out)
         {
-            savedUser.currentUser = null;
+            SavedUsers.currentUser = null;
             Intent i = new Intent(this, new FinalProject().getClass());
             startActivity(i);
         }

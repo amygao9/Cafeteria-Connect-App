@@ -47,7 +47,7 @@ public class DialogProduct extends DialogFragment{
 
 
         TextView btnContinue = (TextView) dialogView.findViewById(R.id.txtContinue);
-        TextView btnCheckout = (TextView) dialogView.findViewById(R.id.txtContinue);
+        TextView btnCheckout = (TextView) dialogView.findViewById(R.id.txtCheckout);
         ImageButton btnAdd = (ImageButton) dialogView.findViewById(R.id.buttonAdd);
         ImageButton btnDelete = (ImageButton) dialogView.findViewById(R.id.buttonMinus);
         TextView prodName = (TextView) dialogView.findViewById(R.id.prodName);
@@ -71,7 +71,7 @@ public class DialogProduct extends DialogFragment{
         prodName.setText(dProduct.getName());
         subdescription.setText(dProduct.getSubDescription());
         cartItemPrice.setText(tPrice);
-        quantity.setText(tQuantity);
+        quantity.setText(String.valueOf(tQuantity));
         prodPrice.setText(dProduct.getFormattedUnitPrice());
 
         btnContinue.setText("Continue");
@@ -90,10 +90,10 @@ public class DialogProduct extends DialogFragment{
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+/*                dismiss();
                 Intent i = new Intent(mContext, CartPage.class);
                 startActivity(i);
-            }
+ */           }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener(){
@@ -118,6 +118,17 @@ public class DialogProduct extends DialogFragment{
 
         return builder.create();
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog d = getDialog();
+        if (d != null) {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            d.getWindow().setLayout(width, height);
+        }
     }
 
     public void setContext(Context c){

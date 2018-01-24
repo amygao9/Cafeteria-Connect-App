@@ -1,6 +1,6 @@
 package com.strobertchs.finalproject;
 
-public class savedUser {
+public class SavedUsers {
     public static User currentUser;
 
     public static final String FIRSTNAME = "";

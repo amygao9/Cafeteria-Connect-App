@@ -62,11 +62,9 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         List<Product> pList = populateProductList(); //initialize the list of products
         mProdAdapter = new ProductAdapter(this, pList);
 
-        //listProduct = (ListView) findViewById(R.id.selectedMenuList);
-        View view = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.content_selection_menu, null);
-        listProduct = (ListView)view.findViewById(R.id.selectedMenuList);
+        listProduct = (ListView)findViewById(R.id.selectedMenuList);
         listProduct.setAdapter(mProdAdapter);
-        //mProdAdapter.notifyDataSetChanged();
+        mProdAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -91,6 +89,9 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         List<Product> pList = new ArrayList<Product>();
         if (selectedMenus.equals("Breakfast")) {
             pList.add(new Food("Hard Boiled Egg", 1.00, R.drawable.breakfast, "Egg"));
+            pList.add(new Food("Sausage", 2.00, R.drawable.breakfast, "Sausage"));
+            pList.add(new Food("Becken", 3.00, R.drawable.breakfast, "Becken"));
+            pList.add(new Food("Noodles", 5.00, R.drawable.breakfast, "Noddles"));
         }
         else if (selectedMenus.equals("Lunch")) {
             pList.add(new Food("Pepperoni Pizza", 85.99999, R.drawable.lunch, "Cheese, flour, pepperoni"));
@@ -117,17 +118,17 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_cart) {
             Intent i = null;
-            i = new Intent(this, new CartPage().getClass());
+/*            i = new Intent(this, new CartPage().getClass());
             startActivity(i);
-        }
+  */      }
         else if (id == R.id.nav_orders) {
 
         }
         else if (id == R.id.nav_log_out) {
-            savedUser.currentUser = null;
+/*            SavedUsers.currentUser = null;
             Intent i = new Intent(this, new FinalProject().getClass());
             startActivity(i);
-        }
+ */       }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

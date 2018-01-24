@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.strobertchs.finalproject.Adapters.CartAdapter;
+//import com.strobertchs.finalproject.Adapters.CartAdapter;
 
 import java.util.ArrayList;
 

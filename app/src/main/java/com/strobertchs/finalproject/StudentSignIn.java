@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import io.paperdb.Paper;
 
-public class student_sign_in extends AppCompatActivity {
+public class StudentSignIn extends AppCompatActivity {
 
     EditText editFirstName;
     EditText editLastName;
@@ -47,7 +46,7 @@ public class student_sign_in extends AppCompatActivity {
         editLoginButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog = new ProgressDialog(student_sign_in.this);
+                final ProgressDialog mDialog = new ProgressDialog(StudentSignIn.this);
                 mDialog.setMessage("Please wait a moment...");
                 mDialog.show();
 
@@ -61,29 +60,29 @@ public class student_sign_in extends AppCompatActivity {
                                 .equals("ycdsbk12.ca") && !editPassword.getText().toString().equals("")) {
                             user = new User(editEmail.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPassword.getText().toString());
                             table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
-                            Toast.makeText(student_sign_in.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentSignIn.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
                             // Save user and password
-                            savedUser.currentUser = user;
-                            Paper.book().write(savedUser.FIRSTNAME, editFirstName.getText().toString());
-                            Paper.book().write(savedUser.LASTNAME, editLastName.getText().toString());
-                            Paper.book().write(savedUser.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
-                            Paper.book().write(savedUser.PASSWORD, editPassword.getText().toString());
+                            SavedUsers.currentUser = user;
+                            Paper.book().write(SavedUsers.FIRSTNAME, editFirstName.getText().toString());
+                            Paper.book().write(SavedUsers.LASTNAME, editLastName.getText().toString());
+                            Paper.book().write(SavedUsers.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
+                            Paper.book().write(SavedUsers.PASSWORD, editPassword.getText().toString());
 
-                            Intent i = new Intent(student_sign_in.this, Home.class);
+                            Intent i = new Intent(StudentSignIn.this, Home.class);
                             startActivity(i);
                         }
 
                         else if(editFirstName.getText().toString().equals("") || editLastName.getText().toString().equals("")) {
-                            Toast.makeText(student_sign_in.this, "Please fill out your name", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentSignIn.this, "Please fill out your name", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(!editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11).equals("ycdsbk12.ca")) {
-                            Toast.makeText(student_sign_in.this, "Please use your school email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentSignIn.this, "Please use your school email", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(editPassword.getText().toString().equals("")){
-                            Toast.makeText(student_sign_in.this, "Please enter a password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentSignIn.this, "Please enter a password", Toast.LENGTH_SHORT).show();
                         }
 
                     }
