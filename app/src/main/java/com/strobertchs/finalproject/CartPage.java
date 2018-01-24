@@ -58,9 +58,9 @@ public class CartPage extends AppCompatActivity {
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = Paper.book().read(savedUser.USER);
+                String username = Paper.book().read(SavedUsers.USER);
                 int orderNum = randInt();
-                Paper.book().write(savedUser.ORDERNUM, orderNum);
+                Paper.book().write(SavedUsers.ORDERNUM, orderNum);
                 Request currentReq = new Request(username, cart);
 
                 order.child(Integer.toString(orderNum)).setValue(currentReq);

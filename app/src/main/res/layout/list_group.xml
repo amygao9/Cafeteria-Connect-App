@@ -17,6 +17,7 @@
             android:id="@+id/lblListHeader"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
             android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
             android:textSize="30dp" />
 
@@ -24,9 +25,10 @@
             android:id="@+id/orderTotal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="sans-serif-smallcaps"
             android:text="Price"
             android:textAlignment="textEnd"
-            android:textSize="30sp" />
+            android:textSize="20dp" />
 
 
     </LinearLayout>
