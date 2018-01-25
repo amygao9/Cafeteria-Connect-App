@@ -37,7 +37,7 @@ public class FinalProject extends AppCompatActivity {
                     }
                 }
                 else {
-                    Intent i = new Intent(FinalProject.this, StudentSignIn.class);
+                    Intent i = new Intent(FinalProject.this, StudentSignUp.class);
                     startActivity(i);
                 }
             }
