@@ -67,6 +67,15 @@ public class CartItem
     }
 
     /**
+     * Get the imageId of the product for this cart item
+     * @return the imageId of the product
+     */
+    public int getProductImageId()
+    {
+        return this.product.getImageId();
+    }
+
+    /**
      * Gets a the price of the cart item in currency string format $D.DD i.e $9.99.
      * @return The price in currency string format
      */

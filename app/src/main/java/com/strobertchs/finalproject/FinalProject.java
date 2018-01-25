@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.strobertchs.finalproject.model.SavedUsers;
+
 import io.paperdb.Paper;
 
 public class FinalProject extends AppCompatActivity {

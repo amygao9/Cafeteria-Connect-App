@@ -1,4 +1,4 @@
-package com.strobertchs.finalproject.Adapters;
+package com.strobertchs.finalproject;
 
 import android.content.Context;
 import android.graphics.Typeface;

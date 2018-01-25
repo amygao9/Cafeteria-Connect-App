@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.strobertchs.finalproject.SelectedMenu">
+    tools:context="com.strobertchs.finalproject.CartPage">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_selection_menu" />
+    <include layout="@layout/content_cart_page" />
 
     <!--
     android:backgroundTint="android:color/white"

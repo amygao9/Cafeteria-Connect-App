@@ -1,4 +1,4 @@
-package com.strobertchs.finalproject;
+package com.strobertchs.finalproject.model;
 
 import java.util.ArrayList;
 import java.util.List;
