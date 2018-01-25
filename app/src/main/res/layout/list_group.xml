@@ -30,6 +30,13 @@
             android:textAlignment="textEnd"
             android:textSize="20dp" />
 
+        <Button
+            android:id="@+id/orderReady"
+            android:layout_width="wrap_content"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            android:text="Order Ready" />
+
 
     </LinearLayout>
 
