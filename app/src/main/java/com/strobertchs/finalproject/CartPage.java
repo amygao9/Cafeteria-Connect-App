@@ -89,6 +89,7 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 if(Home.SHOPPING_CART.getCartItemList().size()==0){
                     Toast.makeText(CartPage.this, "Nothing in your cart.", Toast.LENGTH_SHORT).show();
                     return;
@@ -119,6 +120,16 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
                         }).show();
                 //reset cart
                 Home.SHOPPING_CART = new Cart(0.13);
+=======
+                String username = Paper.book().read(SavedUsers.USER);
+                int orderNum = randInt();
+                Paper.book().write(SavedUsers.ORDERNUM, orderNum);
+                Request currentReq = new Request(username, cart);
+
+                order.child(Integer.toString(orderNum)).setValue(currentReq);
+                Toast.makeText(CartPage.this, "Order Placed!", Toast.LENGTH_SHORT).show();
+                cart.clear(); //empty cart
+>>>>>>> 49f02f63942236c359af91339b8f8902194d514d
             }
         });
 
