@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.strobertchs.finalproject.model.SavedUsers;
+import com.strobertchs.finalproject.model.User;
 
 import io.paperdb.Paper;
 
@@ -66,6 +68,7 @@ public class StudentSignIn extends AppCompatActivity {
                             SavedUsers.currentUser = user;
                             Paper.book().write(SavedUsers.FIRSTNAME, editFirstName.getText().toString());
                             Paper.book().write(SavedUsers.LASTNAME, editLastName.getText().toString());
+                            Paper.book().write(SavedUsers.EMAIL, editEmail.getText().toString());
                             Paper.book().write(SavedUsers.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
 
                             Intent i = new Intent(StudentSignIn.this, Home.class);

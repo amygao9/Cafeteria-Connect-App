@@ -1,40 +1,41 @@
 package com.strobertchs.finalproject;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.strobertchs.finalproject.model.CartItem;
 import com.strobertchs.finalproject.model.Drinks;
 import com.strobertchs.finalproject.model.Food;
 import com.strobertchs.finalproject.model.Product;
+import com.strobertchs.finalproject.model.SavedUsers;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SelectedMenu page is displayed after user clicks on a main menu in the Home page.
+ * @author jenny
+ */
 public class SelectedMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    String selectedMenus;
+    String selectedMainMenu;
     private ProductAdapter mProdAdapter;
-    ListView listProduct;
+    ListView selectedMenuListView;
 
 
     public SelectedMenu() {
@@ -45,10 +46,10 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_menu);
-        this.selectedMenus = getIntent().getStringExtra("selectedMenu");
+        this.selectedMainMenu = getIntent().getStringExtra("selectedMainMenu");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(selectedMenus);
+        toolbar.setTitle(selectedMainMenu);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -59,12 +60,13 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        List<Product> pList = populateProductList(); //initialize the list of products
+        //initialize the list of products and instantiate ProductAdapter
+        List<Product> pList = populateProductList();
         mProdAdapter = new ProductAdapter(this, pList);
 
-        listProduct = (ListView)findViewById(R.id.selectedMenuList);
-        listProduct.setAdapter(mProdAdapter);
-        mProdAdapter.notifyDataSetChanged();
+        //Populate ListView selectedMenuList
+        selectedMenuListView = (ListView)findViewById(R.id.selectedMenuList);
+        selectedMenuListView.setAdapter(mProdAdapter);
     }
 
     @Override
@@ -87,19 +89,19 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
 
     public List<Product> populateProductList() {
         List<Product> pList = new ArrayList<Product>();
-        if (selectedMenus.equals("Breakfast")) {
+        if (selectedMainMenu.equals("Breakfast")) {
             pList.add(new Food("Hard Boiled Egg", 1.00, R.drawable.breakfast, "Egg"));
             pList.add(new Food("Sausage", 2.00, R.drawable.breakfast, "Sausage"));
             pList.add(new Food("Becken", 3.00, R.drawable.breakfast, "Becken"));
             pList.add(new Food("Noodles", 5.00, R.drawable.breakfast, "Noddles"));
         }
-        else if (selectedMenus.equals("Lunch")) {
+        else if (selectedMainMenu.equals("Lunch")) {
             pList.add(new Food("Pepperoni Pizza", 85.99999, R.drawable.lunch, "Cheese, flour, pepperoni"));
         }
-        else if (selectedMenus.equals("Desserts")) {
+        else if (selectedMainMenu.equals("Desserts")) {
             pList.add(new Food("Chocolate Chip Cookie", 1.25, R.drawable.desserts, "Chocolate chips"));
         }
-        else if (selectedMenus.equals("Drinks")) {
+        else if (selectedMainMenu.equals("Drinks")) {
             pList.add(new Drinks("Coffee", 1.25, R.drawable.drinks, "Hot Drink"));
         }
         return pList;
@@ -118,17 +120,17 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
         }
         else if (id == R.id.nav_cart) {
             Intent i = null;
-/*            i = new Intent(this, new CartPage().getClass());
+            i = new Intent(this, new CartPage().getClass());
             startActivity(i);
-  */      }
+        }
         else if (id == R.id.nav_orders) {
 
         }
         else if (id == R.id.nav_log_out) {
-/*            SavedUsers.currentUser = null;
+            SavedUsers.currentUser = null;
             Intent i = new Intent(this, new FinalProject().getClass());
             startActivity(i);
- */       }
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -136,74 +138,52 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
     }
 
 
-    public class ProductAdapter extends BaseAdapter {
-
-        Context context;
-        List<Product> productList;
+    /**
+     * ProductAdapter for rendering SelectedMenuList view.
+     */
+    public class ProductAdapter extends ArrayAdapter<Product> {
 
         public ProductAdapter(SelectedMenu pActivity, List<Product> pList) {
-            context = pActivity;
-            productList = pList;
+            super(pActivity, 0, pList);
         }
 
-        @Override
-        public int getCount() {
-            return productList.size();
-        }
-
-        @Override
-        public Object getItem(int whichItem) {
-            return productList.get(whichItem);
-        }
-
-        @Override
-        public long getItemId(int whichItem) {
-            return whichItem;
-        }
-
-/*        public void addProduct(Product prod) {
-            productList.add(prod);
-            notifyDataSetChanged();
-        }
-*/
         public class Holder {
             TextView txtName;
             TextView txtPrice;
             ImageView prodImage;
+            public void populateHolder(View view) {
+                txtName = (TextView) view.findViewById(R.id.name);
+                txtPrice = (TextView) view.findViewById(R.id.unitPrice);
+                prodImage = (ImageView) view.findViewById(R.id.imageId);
+            }
         }
 
         @Override
         public View getView(final int whichItem, View convertView, ViewGroup viewGroup) {
             Holder holder = new Holder();
-            final View view;
 
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.product, null);
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.product, viewGroup, false);
+            }
+            holder.populateHolder(convertView);
 
-            holder.txtName = (TextView) view.findViewById(R.id.name);
-            holder.txtPrice = (TextView) view.findViewById(R.id.unitPrice);
-            holder.prodImage = (ImageView) view.findViewById(R.id.imageId);
-
-            Product tempProduct = productList.get(whichItem);
+            Product tempProduct = getItem(whichItem);
             holder.txtName.setText(tempProduct.getName());
             holder.txtPrice.setText(tempProduct.getFormattedUnitPrice());
-            Picasso.with(context).load(tempProduct.getImageId()).into(holder.prodImage);
+            Picasso.with(getContext()).load(tempProduct.getImageId()).into(holder.prodImage);
 
             // make the addToCart a clickable action
-            view.setOnClickListener(new View.OnClickListener() {
+            convertView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //Toast.makeText(getApplicationContext(), productList.get(whichItem).getName() + " added to cart", Toast.LENGTH_SHORT).show();
-                    //Home.shoppingCart.addCartItem(new CartItem(productList.get(whichItem), 1));
+                    //Create the dialog for showing prouct details
                     DialogProduct dialog = new DialogProduct();
-                    dialog.sendProduct(productList.get(whichItem));
-                    dialog.setContext(context);
-                    // Create the dialog
+                    dialog.sendProduct(getItem(whichItem));
+                    dialog.setContext(getContext());
                     dialog.show(getFragmentManager(), "123");
                 }
             });
 
-
-            return view;
+            return convertView;
         }
 
 

@@ -75,21 +75,46 @@ public class Cart
 
     /**
      * Find the cartItem by product name
-     * @param pName - name of the product in the cartItem
+     * @param prodName - name of the product in the cartItem
      * @return cartItem
      */
-    public CartItem findCartItem(String pName)
+    public CartItem findCartItem(String prodName)
     {
         CartItem cartItem = null;
         for (int i = 0; i < getSize(); i ++)
         {
-            cartItem = cartItems.get(i);
-            if (cartItem.getProductName().equals(pName))
+            CartItem ci = cartItems.get(i);
+            if (ci.getProductName().equals(prodName))
             {
+                cartItem = ci;
                 break;
             }
         }
         return cartItem;
+    }
+
+    /**
+     * Get the formatted price of CartItem for the Product
+     * @param product the Product
+     * @return formatted price of the CartItem for the product
+     */
+    public String getCartItemFormattedPrice(Product product)
+    {
+        CartItem cartItem = this.findCartItem(product.getName());
+        if(cartItem==null) cartItem = new CartItem(product, 0);
+        return cartItem.getFormattedPrice();
+    }
+
+    /**
+     * Get the quantity of the CartItem by the Product
+     * @param product - the Product
+     * @return count of Product in the CartItem
+     */
+    public int getCartItemQuantity(Product product)
+    {
+        CartItem cartItem = this.findCartItem(product.getName());
+        if(cartItem==null) cartItem = new CartItem(product, 0);
+        return cartItem.getQuantity();
     }
 
     /**
@@ -110,6 +135,7 @@ public class Cart
             }
         }
     }
+
 
     /**
      * Get the number of CartItems in the CartPage

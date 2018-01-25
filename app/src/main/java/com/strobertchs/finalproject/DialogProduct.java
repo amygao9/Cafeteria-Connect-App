@@ -6,14 +6,10 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +17,11 @@ import com.strobertchs.finalproject.model.CartItem;
 import com.strobertchs.finalproject.model.Product;
 
 import java.text.NumberFormat;
-import java.util.List;
 
 /**
- * Created by jenny on 2018-01-21.
+ * DialogProduct is displayed after user clicks on a menu item in the SelectedMenu page.
+ * @author jenny
  */
-
-
 public class DialogProduct extends DialogFragment{
 
     private Product dProduct;
@@ -36,15 +30,11 @@ public class DialogProduct extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialogue_product, null);
-
-
-
 
         TextView btnContinue = (TextView) dialogView.findViewById(R.id.txtContinue);
         TextView btnCheckout = (TextView) dialogView.findViewById(R.id.txtCheckout);
@@ -52,34 +42,30 @@ public class DialogProduct extends DialogFragment{
         ImageButton btnDelete = (ImageButton) dialogView.findViewById(R.id.buttonMinus);
         TextView prodName = (TextView) dialogView.findViewById(R.id.prodName);
         TextView subdescription = (TextView) dialogView.findViewById(R.id.subdescription);
-        TextView cartItemPrice = (TextView) dialogView.findViewById(R.id.unitPrice);
+        final TextView cartItemPrice = (TextView) dialogView.findViewById(R.id.unitPrice);
         final TextView quantity = (TextView) dialogView.findViewById(R.id.quantity);
         TextView prodPrice = (TextView) dialogView.findViewById(R.id.prodPrice);
-
         TextView txtPrice = (TextView) dialogView.findViewById(R.id.textView3);
         TextView txtQuantity = (TextView) dialogView.findViewById(R.id.textView8);
 
         txtPrice.setText("Price");
         txtQuantity.setText("Quantity");
-
-        //Find the cartItem for this product in shopping cart
-        dCartItem = Home.shoppingCart.findCartItem(this.dProduct.getName());
-        if(dCartItem==null) dCartItem = new CartItem(this.dProduct, 0);
-        String tPrice = dCartItem.getFormattedPrice();
-        int tQuantity = dCartItem.getQuantity();
-
         prodName.setText(dProduct.getName());
         subdescription.setText(dProduct.getSubDescription());
+        prodPrice.setText(dProduct.getFormattedUnitPrice());
+
+        //Get the price and quantity of the cartItem for this product in shopping cart
+        String tPrice = Home.SHOPPING_CART.getCartItemFormattedPrice(this.dProduct);
+        int tQuantity = Home.SHOPPING_CART.getCartItemQuantity(this.dProduct);
         cartItemPrice.setText(tPrice);
         quantity.setText(String.valueOf(tQuantity));
-        prodPrice.setText(dProduct.getFormattedUnitPrice());
 
         btnContinue.setText("Continue");
         btnCheckout.setText("Checkout");
 
-
         builder.setView(dialogView).setMessage("");
 
+        //Add button click listener for continue button
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,32 +73,51 @@ public class DialogProduct extends DialogFragment{
             }
         });
 
+        //Add button click listener for checkout button
         btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*                dismiss();
+                dismiss();
                 Intent i = new Intent(mContext, CartPage.class);
                 startActivity(i);
- */           }
-        });
-
-        btnAdd.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Home.shoppingCart.addCartItem(new CartItem(dProduct, 1));
-                Toast.makeText(mContext, dProduct.getName() + " added to cart", Toast.LENGTH_SHORT).show();
             }
         });
 
+        //Add button click listener for add product button
+        btnAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //add one more product to shopping cart
+                Home.SHOPPING_CART.addCartItem(new CartItem(dProduct, 1));
+                //update quantity text view
+                int countOfProd = Integer.parseInt(quantity.getText().toString());
+                countOfProd++;
+                quantity.setText(String.valueOf(countOfProd));
+                cartItemPrice.setText(Home.SHOPPING_CART.getCartItemFormattedPrice(dProduct));
+                Toast.makeText(mContext, "1" + dProduct.getName() + " added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Add button click listener for delete product button
         btnDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if(quantity.getText().equals("0"))
                 {
-                    Toast.makeText(mContext, dProduct.getName() + " cannot be deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "No more "+dProduct.getName() + "in cart", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Home.shoppingCart.deleteCartItem(new CartItem(dProduct, 1));
+                else
+                {
+                    //delete one product from shopping cart
+                    Home.SHOPPING_CART.deleteCartItem(new CartItem(dProduct, 1));
+                    //update quantity text view
+                    int countOfProd = Integer.parseInt(quantity.getText().toString());
+                    countOfProd--;
+                    quantity.setText(String.valueOf(countOfProd));
+                    cartItemPrice.setText(Home.SHOPPING_CART.getCartItemFormattedPrice(dProduct));
+                    Toast.makeText(mContext, "1 " + dProduct.getName() + " was deleted.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
