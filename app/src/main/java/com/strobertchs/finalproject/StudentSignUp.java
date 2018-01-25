@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.strobertchs.finalproject.model.SavedUsers;
+import com.strobertchs.finalproject.model.User;
 
 import io.paperdb.Paper;
 
