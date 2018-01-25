@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import com.strobertchs.finalproject.model.Cart;
 import com.strobertchs.finalproject.model.CartItem;
 import com.strobertchs.finalproject.model.Order;
+import com.strobertchs.finalproject.model.Request;
 import com.strobertchs.finalproject.model.SavedUsers;
 import com.strobertchs.finalproject.model.User;
 
@@ -85,6 +86,7 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
         btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(Home.SHOPPING_CART.getCartItemList().size()==0){
                     Toast.makeText(CartPage.this, "Nothing in your cart.", Toast.LENGTH_SHORT).show();
                     return;

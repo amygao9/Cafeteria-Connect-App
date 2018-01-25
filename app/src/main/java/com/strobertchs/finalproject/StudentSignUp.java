@@ -19,8 +19,10 @@ import com.strobertchs.finalproject.model.User;
 
 import io.paperdb.Paper;
 
-public class StudentSignIn extends AppCompatActivity {
+public class StudentSignUp extends AppCompatActivity {
 
+    EditText editFirstName;
+    EditText editLastName;
     EditText editEmail;
     EditText editPassword;
     TextView editLoginButtonText;
@@ -29,8 +31,7 @@ public class StudentSignIn extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_sign_in);
-
+        setContentView(R.layout.activity_student_sign_up);
         //Initiate Paper
         Paper.init(this);
 
@@ -38,7 +39,8 @@ public class StudentSignIn extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("User");
 
-
+        editFirstName = (EditText) findViewById(R.id.Name);
+        editLastName = (EditText) findViewById(R.id.LastName);
         editEmail = (EditText) findViewById(R.id.EmailAddress);
         editPassword = (EditText) findViewById(R.id.Password);
         editLoginButtonText = (TextView) findViewById(R.id.Login_Button_Text);
@@ -46,7 +48,7 @@ public class StudentSignIn extends AppCompatActivity {
         editLoginButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog = new ProgressDialog(StudentSignIn.this);
+                final ProgressDialog mDialog = new ProgressDialog(StudentSignUp.this);
                 mDialog.setMessage("Please wait a moment...");
                 mDialog.show();
 
@@ -55,21 +57,33 @@ public class StudentSignIn extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mDialog.dismiss();
 
-                        if(editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11)
-                                .equals("") && !editPassword.getText().toString().equals("")) {
+                        if(!editFirstName.getText().toString().equals("") && !editLastName.getText().toString().equals("")
+                                && editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11)
+                                .equals("ycdsbk12.ca") && !editPassword.getText().toString().equals("")) {
+                            user = new User(editEmail.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPassword.getText().toString());
+                            table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
+                            Toast.makeText(StudentSignUp.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(StudentSignIn.this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                            // Save user and password
+                            SavedUsers.currentUser = user;
+                            Paper.book().write(SavedUsers.FIRSTNAME, editFirstName.getText().toString());
+                            Paper.book().write(SavedUsers.LASTNAME, editLastName.getText().toString());
+                            Paper.book().write(SavedUsers.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
 
-                            Intent i = new Intent(StudentSignIn.this, Home.class);
+                            Intent i = new Intent(StudentSignUp.this, Home.class);
                             startActivity(i);
                         }
 
+                        else if(editFirstName.getText().toString().equals("") || editLastName.getText().toString().equals("")) {
+                            Toast.makeText(StudentSignUp.this, "Please fill out your name", Toast.LENGTH_SHORT).show();
+                        }
+
                         else if(!editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11).equals("ycdsbk12.ca")) {
-                            Toast.makeText(StudentSignIn.this, "Please use your school email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentSignUp.this, "Please use your school email", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(editPassword.getText().toString().equals("")){
-                            Toast.makeText(StudentSignIn.this, "Please enter a password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentSignUp.this, "Please enter a password", Toast.LENGTH_SHORT).show();
                         }
 
                     }

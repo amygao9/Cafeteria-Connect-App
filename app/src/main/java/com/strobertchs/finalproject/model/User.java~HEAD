@@ -1,4 +1,4 @@
-package com.strobertchs.finalproject;
+package com.strobertchs.finalproject.model;
 
 public class User {
     private String email;

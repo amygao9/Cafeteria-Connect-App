@@ -7,9 +7,6 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.strobertchs.finalproject.Adapters.ExpandableListAdapter;
-import com.strobertchs.finalproject.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
