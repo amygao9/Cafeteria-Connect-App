@@ -37,7 +37,9 @@
         <activity
             android:name=".ServerOrder"
             android:label="ServerOrder" />
-        <activity android:name=".ServerOrderLay"></activity>
+        <activity android:name=".ServerOrderLay" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SignUpOrSignIn"></activity>
     </application>
 
 </manifest>

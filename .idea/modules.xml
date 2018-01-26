@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/ICS4U1a201718_FinalProject.iml" filepath="$PROJECT_DIR$/ICS4U1a201718_FinalProject.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/ICS4U1a201718_FinalProject_Janice.iml" filepath="$PROJECT_DIR$/ICS4U1a201718_FinalProject_Janice.iml" />
+>>>>>>> 47ea20249ffd490b8d124686c88070ae339475a0
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

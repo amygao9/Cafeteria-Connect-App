@@ -27,6 +27,7 @@ import com.squareup.picasso.Picasso;
 import com.strobertchs.finalproject.model.Cart;
 import com.strobertchs.finalproject.model.CartItem;
 import com.strobertchs.finalproject.model.Order;
+import com.strobertchs.finalproject.model.Request;
 import com.strobertchs.finalproject.model.SavedUsers;
 import com.strobertchs.finalproject.model.User;
 
@@ -72,10 +73,6 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
         //Paper
         Paper.init(this);
 
-        //Firebase
-//        database = FirebaseDatabase.getInstance();
-
-
         TextView txtSubTotalPrice = (TextView)findViewById(R.id.subTotalPrice);
         TextView txtTax = (TextView)findViewById(R.id.tax);
         TextView txtTotalPrice = (TextView)findViewById(R.id.totalPrice);
@@ -101,11 +98,10 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
                 Paper.book().write(SavedUsers.ORDERNUM, orderNum);
                 Order o = new Order(Home.SHOPPING_CART.getCartItemList(), orderNum, orderUser, new Date());
 
-                //TODO: uncomment the following for submitting order to server database
                 //Submit order to database
-//                database = FirebaseDatabase.getInstance();
-//                order = database.getReference("Order");
-//                order.child(orderNum).setValue(o);
+                  database = FirebaseDatabase.getInstance();
+                  order = database.getReference("Orders");
+                  order.child(orderNum).setValue(o);
 
                 //Show order information
                 AlertDialog.Builder dialog = new AlertDialog.Builder(CartPage.this);
@@ -120,7 +116,6 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
                         }).show();
                 //reset cart
                 Home.SHOPPING_CART = new Cart(0.13);
-
             }
         });
 

@@ -15,20 +15,20 @@
 
         <TextView
             android:id="@+id/lblListHeader"
-            android:layout_width="220dp"
+            android:layout_width="243dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
             android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
             android:textSize="30dp" />
 
-        <TextView
-            android:id="@+id/orderTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <Button
+            android:id="@+id/orderReady"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="142dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
             android:fontFamily="sans-serif-smallcaps"
-            android:text="Price"
-            android:textAlignment="textEnd"
-            android:textSize="20dp" />
+            android:text="Order Ready" />
 
 
     </LinearLayout>
