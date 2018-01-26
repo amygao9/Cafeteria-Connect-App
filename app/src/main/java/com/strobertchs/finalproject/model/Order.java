@@ -1,6 +1,5 @@
 package com.strobertchs.finalproject.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,11 +16,11 @@ public class Order {
     /**
      * The order number
      */
-    private String orderNumber;
+    private String orderStatus;
     /**
      * the user who places the order
      */
-    private User orderUser;
+    private String orderUser;
     /**
      * the time of the order to be placed
      */
@@ -30,9 +29,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(ArrayList<CartItem> cartItems, String orderNumber, User orderUser, Date orderTime) {
+    public Order(ArrayList<CartItem> cartItems, String orderNumber, String orderUser, Date orderTime) {
         this.cartItems = cartItems;
-        this.orderNumber = orderNumber;
+        this.orderStatus = orderNumber;
         this.orderUser = orderUser;
         this.orderTime = orderTime;
     }
@@ -57,31 +56,31 @@ public class Order {
      * Get order number
      * @return order number
      */
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
     /**
      * Set order number
-     * @param orderNumber
+     * @param orderStatus
      */
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     /**
      * Get user of the order
      * @return User
      */
-    public User getOrderUser() {
+    public String getOrderUser() {
         return orderUser;
     }
 
     /**
      * Set user of the order
-     * @param orderUser
+     * @param orderUser String
      */
-    public void setOrderUser(User orderUser) {
+    public void setOrderUser(String orderUser) {
         this.orderUser = orderUser;
     }
 

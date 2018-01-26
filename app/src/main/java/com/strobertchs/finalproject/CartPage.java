@@ -10,28 +10,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
+import com.strobertchs.finalproject.adapter.CartAdapter;
 import com.strobertchs.finalproject.model.Cart;
-import com.strobertchs.finalproject.model.CartItem;
 import com.strobertchs.finalproject.model.Order;
-import com.strobertchs.finalproject.model.Request;
 import com.strobertchs.finalproject.model.SavedUsers;
 import com.strobertchs.finalproject.model.User;
+import com.strobertchs.finalproject.utils.Constants;
+import com.strobertchs.finalproject.utils.ViewUtils;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -47,7 +42,7 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
     private CartAdapter cartAdapter;
 
     FirebaseDatabase database;
-    DatabaseReference order;
+    DatabaseReference ordersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +65,6 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
         cartAdapter = new CartAdapter(this, Home.SHOPPING_CART.getCartItemList());
         cartItemListView.setAdapter(cartAdapter);
 
-        //Paper
-        Paper.init(this);
-
         TextView txtSubTotalPrice = (TextView)findViewById(R.id.subTotalPrice);
         TextView txtTax = (TextView)findViewById(R.id.tax);
         TextView txtTotalPrice = (TextView)findViewById(R.id.totalPrice);
@@ -93,27 +85,27 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
                 }
 
                 //prepare order
-                User orderUser = SavedUsers.getCurrentUser(CartPage.this);
-                String orderNum = getOrderNumber();
-                Paper.book().write(SavedUsers.ORDERNUM, orderNum);
-                Order o = new Order(Home.SHOPPING_CART.getCartItemList(), orderNum, orderUser, new Date());
+                User orderUser = SavedUsers.getCurrentUser();
+                Order o = new Order(Home.SHOPPING_CART.getCartItemList(), Constants.ORDER_OPENED, orderUser.getEmail(), new Date());
+                String orderNum = ViewUtils.getTimeStampString(o.getOrderTime());
 
                 //Submit order to database
-                  database = FirebaseDatabase.getInstance();
-                  order = database.getReference("Orders");
-                  order.child(orderNum).setValue(o);
+                database = FirebaseDatabase.getInstance();
+                ordersRef = database.getReference("Orders");
+                ordersRef.child(orderNum).setValue(o);
 
                 //Show order information
                 AlertDialog.Builder dialog = new AlertDialog.Builder(CartPage.this);
 
-                dialog.setTitle( "Order Information" )
-                        .setMessage("Order placed successfully, order # " + orderNum)
+                dialog.setTitle( "Order Confirmation" )
+                        .setMessage("You will be notified once it's ready.")
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
                                 Intent intent = new Intent(CartPage.this, Home.class);
                                 startActivity(intent);
                             }
                         }).show();
+
                 //reset cart
                 Home.SHOPPING_CART = new Cart(0.13);
             }
@@ -180,16 +172,9 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
             i = new Intent(this, new Home().getClass());
             startActivity(i);
         }
-        else if (id == R.id.nav_cart) {
-            Intent i = null;
-            i = new Intent(this, new CartPage().getClass());
-            startActivity(i);
-        }
-        else if (id == R.id.nav_orders) {
 
-        }
         else if (id == R.id.nav_log_out) {
-            SavedUsers.currentUser = null;
+            SavedUsers.deleteCurrentUser();
             Intent i = new Intent(this, new FinalProject().getClass());
             startActivity(i);
         }
@@ -200,44 +185,5 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
     }
 
 
-    public class CartAdapter extends ArrayAdapter<CartItem> {
-
-        public CartAdapter(CartPage context, ArrayList<CartItem> cartItemList) {
-            super(context, 0, cartItemList);
-        }
-
-        public class Holder {
-            TextView txtName;
-            TextView txtPrice;
-            TextView txtQuantity;
-            ImageView prodImage;
-            public void populateHolder(View view){
-                txtName = (TextView) view.findViewById(R.id.name);
-                txtPrice = (TextView) view.findViewById(R.id.itemTotalPrice);
-                txtQuantity = (TextView) view.findViewById(R.id.itemQuantity);
-                prodImage = (ImageView) view.findViewById(R.id.imageId);
-            }
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup viewGroup) {
-            Holder holder = new Holder();
-
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.cart_item, viewGroup, false);
-            }
-            holder.populateHolder(convertView);
-
-            CartItem cartItem = getItem(position);
-            holder.txtName.setText(cartItem.getProductName());
-            holder.txtQuantity.setText(String.valueOf(cartItem.getQuantity()));
-            holder.txtPrice.setText(cartItem.getFormattedPrice());
-            Picasso.with(getContext()).load(cartItem.getProductImageId()).into(holder.prodImage);
-
-            return convertView;
-        }
-
-
-    }
 }
 

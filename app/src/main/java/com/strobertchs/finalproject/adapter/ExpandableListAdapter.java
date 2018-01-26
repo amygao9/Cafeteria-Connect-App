@@ -1,4 +1,4 @@
-package com.strobertchs.finalproject;
+package com.strobertchs.finalproject.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.strobertchs.finalproject.R;
@@ -108,6 +109,14 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
+        Button orderReady = (Button) convertView.findViewById(R.id.orderReady);
+        orderReady.setFocusable(false);
+        orderReady.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return convertView;
     }
 

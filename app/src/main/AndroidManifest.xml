@@ -24,7 +24,6 @@
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!-- <activity android:name=".Cart1" /> -->
         <activity android:name=".CartPage" />
         <activity
             android:name=".SelectedMenu"
@@ -32,14 +31,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CafeteriaSignIn"
-            android:label="_sign_in"
+            android:label="CafeteriaSignIn"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ServerOrder"
-            android:label="ServerOrder" />
-        <activity android:name=".ServerOrderLay" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpOrSignIn"></activity>
+        <activity android:name=".ServerOrderLay"
+            android:label="Orders"/>
+        <activity android:name=".StudentSignUp"
+            android:label="StudentSignUp"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
