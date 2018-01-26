@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.strobertchs.finalproject.model.CartItem;
 import com.strobertchs.finalproject.model.Product;
 
@@ -47,6 +49,7 @@ public class DialogProduct extends DialogFragment{
         TextView prodPrice = (TextView) dialogView.findViewById(R.id.prodPrice);
         TextView txtPrice = (TextView) dialogView.findViewById(R.id.textView3);
         TextView txtQuantity = (TextView) dialogView.findViewById(R.id.textView8);
+        ImageView imageId = (ImageView) dialogView.findViewById(R.id.imageId);
 
         txtPrice.setText("Price");
         txtQuantity.setText("Quantity");
@@ -59,6 +62,7 @@ public class DialogProduct extends DialogFragment{
         int tQuantity = Home.SHOPPING_CART.getCartItemQuantity(this.dProduct);
         cartItemPrice.setText(tPrice);
         quantity.setText(String.valueOf(tQuantity));
+        Picasso.with(mContext).load(dProduct.getImageId()).into(imageId);
 
         btnContinue.setText("Continue");
         btnCheckout.setText("Checkout");

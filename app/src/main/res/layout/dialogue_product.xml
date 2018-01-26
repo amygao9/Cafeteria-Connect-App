@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageId"
         android:layout_width="match_parent"
         android:layout_height="192dp"
         android:layout_marginTop="1dp"
@@ -21,14 +21,14 @@
         android:id="@+id/prodName"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignBottom="@+id/imageId"
         android:background="@color/overlayBackground"
         android:gravity="center"
         android:text="Pasta"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/imageId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />

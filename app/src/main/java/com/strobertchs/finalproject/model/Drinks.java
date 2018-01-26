@@ -45,6 +45,6 @@ public class Drinks extends Product {
      */
     public String getSubDescription()
     {
-        return "ID: " + this.getProductID() + "/n" + this.drinkType;
+        return "ID: " + this.getProductID() + "\n" + this.drinkType;
     }
 }

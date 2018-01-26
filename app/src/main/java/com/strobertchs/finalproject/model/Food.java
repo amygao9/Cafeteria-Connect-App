@@ -48,6 +48,6 @@ public class Food extends Product {
      */
     public String getSubDescription()
     {
-        return "ID: " + this.getProductID() + "/nMain ingredients include: " + ingredients;
+        return "ID: " + this.getProductID() + "\nMain ingredients include: " + ingredients;
     }
 }

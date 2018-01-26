@@ -90,19 +90,40 @@ public class SelectedMenu extends AppCompatActivity implements NavigationView.On
     public List<Product> populateProductList() {
         List<Product> pList = new ArrayList<Product>();
         if (selectedMainMenu.equals("Breakfast")) {
-            pList.add(new Food("Hard Boiled Egg", 1.00, R.drawable.breakfast, "Egg"));
-            pList.add(new Food("Sausage", 2.00, R.drawable.breakfast, "Sausage"));
-            pList.add(new Food("Becken", 3.00, R.drawable.breakfast, "Becken"));
-            pList.add(new Food("Noodles", 5.00, R.drawable.breakfast, "Noddles"));
+            pList.add(new Food("Hard Boiled Egg", 1.00, R.drawable.hard_boiled_egg, "Egg"));
+            pList.add(new Food("Scrambled Eggs", 2.00, R.drawable.scrambled_eggs, "Egg, milk"));
+            pList.add(new Food("Sausage", 2.00, R.drawable.sausage, "Sausage"));
+            pList.add(new Food("Bacon", 1.50, R.drawable.bacon, "Bacon, oil"));
+            pList.add(new Food("Breakfast Wrap", 3.22, R.drawable.breakfast_wrap, "Cheese, flour, eggs, lettuce"));
         }
         else if (selectedMainMenu.equals("Lunch")) {
-            pList.add(new Food("Pepperoni Pizza", 85.99999, R.drawable.lunch, "Cheese, flour, pepperoni"));
+            pList.add(new Food("Pepperoni Pizza", 4.25, R.drawable.pepperoni_pizza, "Cheese, flour, pepperoni"));
+            pList.add(new Food("Cheese Pizza", 4.25, R.drawable.cheese_pizza, "Flour, pepperoni"));
+            pList.add(new Food("Pasta", 4.50, R.drawable.pasta, "Flour, milk, tomato"));
+            pList.add(new Food("Oven Roast Chicken", 4.50, R.drawable.oven_roasted_chicken, "Cheese, flour, pepperoni"));
+            pList.add(new Food("Steamed Vegetables", 3.50, R.drawable.steamed_vegetables, "Cheese, flour, pepperoni"));
+            pList.add(new Food("Potato Wedges", 4.00, R.drawable.potato_wedges, "Chicken, potato, pasta, tomato"));
+            pList.add(new Food("Fries", 4.00, R.drawable.fries, "Chicken, potato, pasta, tomato"));
+            pList.add(new Food("Nuggets", 4.15, R.drawable.nuggets, "Chicken, potato, pasta, tomato"));
+            pList.add(new Food("Fried Rice", 3.75, R.drawable.fried_rice, "Rice, tomato, cheese, flour, pepperoni"));
+            pList.add(new Food("Burger", 5.10, R.drawable.burger, "Cheese, flour, beef, lettuce"));
+            pList.add(new Food("Perogies", 4.75, R.drawable.perogies, "Cheese, flour"));
+            pList.add(new Food("Soup", 4.00, R.drawable.soup, "Chicken, potato, pasta, tomato"));
+
         }
         else if (selectedMainMenu.equals("Desserts")) {
-            pList.add(new Food("Chocolate Chip Cookie", 1.25, R.drawable.desserts, "Chocolate chips"));
+            pList.add(new Food("Chocolate Cookie", 1.25, R.drawable.chocolate_cookie, "Chocolate chips, flour, milk"));
+            pList.add(new Food("Double Chocolate Cookie", 1.25, R.drawable.double_chocolate_cookies, "Chocolate chips, cocoa, milk"));
+            pList.add(new Food("Oatmeal Cookie", 1.50, R.drawable.oatmeal_cookie, "Chocolate chips, oatmeal, milk"));
+            pList.add(new Food("Brownie", 1.50, R.drawable.brownies, "Cocoa, milk, flour"));
+            pList.add(new Food("Jelly", 1.50, R.drawable.jelly, "Gelatin, flavouring"));
+            pList.add(new Food("Yogurt", 1.50, R.drawable.yogurt, "Milk"));
         }
         else if (selectedMainMenu.equals("Drinks")) {
-            pList.add(new Drinks("Coffee", 1.25, R.drawable.drinks, "Hot Drink"));
+            pList.add(new Drinks("Coffee", 1.25, R.drawable.coffee, "Hot Drink"));
+            pList.add(new Drinks("Tea", 1.25, R.drawable.tea, "Hot Drink"));
+            pList.add(new Drinks("Hot Water", 1.25, R.drawable.water, "Hot Drink"));
+            pList.add(new Drinks("Sanpellegrino", 1.25, R.drawable.sanpellegrino, "Cold, fizzy drink"));
         }
         return pList;
     }
