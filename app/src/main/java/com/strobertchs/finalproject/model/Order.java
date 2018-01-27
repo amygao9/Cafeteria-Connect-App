@@ -1,7 +1,7 @@
 package com.strobertchs.finalproject.model;
 
-import com.google.firebase.database.Exclude;
 
+import com.google.firebase.database.Exclude;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

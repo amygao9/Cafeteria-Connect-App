@@ -154,29 +154,5 @@ public class ServerOrderLay extends AppCompatActivity {
             }
         });
 
-        // Adding child data
-        /*listDataHeader.add("User 2940");
-        listDataHeader.add("User123");
-        listDataHeader.add("User940");
-
-        // Adding child data
-        List<String> User2940 = new ArrayList<String>();
-        User2940.add("San Pellegrino");
-        User2940.add("Rose Pasta");
-
-
-        List<String> User123 = new ArrayList<String>();
-        User123.add("The Conjuring");
-        User123.add("Despicable Me 2");
-
-
-        List<String> User940 = new ArrayList<String>();
-        User940.add("2 Guns");
-        User940.add("The Smurfs 2");
-
-
-        listDataChild.put(listDataHeader.get(0), User2940); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), User123);
-        listDataChild.put(listDataHeader.get(2), User940);*/
     }
 }

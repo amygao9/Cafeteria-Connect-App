@@ -57,7 +57,6 @@
             android:label="StudentSignUp"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-
         <!-- [START firebase_service] -->
         <service
             android:name=".messaging.CafeteriaFirebaseMessagingService">
