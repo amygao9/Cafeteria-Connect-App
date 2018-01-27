@@ -1,4 +1,4 @@
-package com.strobertchs.finalproject;
+package com.strobertchs.finalproject.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.strobertchs.finalproject.R;
 
 import java.util.HashMap;
@@ -96,7 +99,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+        final String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -108,7 +111,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
+        Button orderReady = (Button) convertView.findViewById(R.id.orderReady);
+        orderReady.setFocusable(false);
+        orderReady.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNotification(headerTitle);
+            }
+        });
         return convertView;
+    }
+
+    /**
+     * Send order ready notification to User
+     * @param orderNum
+     */
+    private void sendNotification(String orderNum){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ordersRef = database.getReference("Orders");
     }
 
     @Override

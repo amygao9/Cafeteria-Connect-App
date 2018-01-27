@@ -21,6 +21,8 @@ public class Cart
      */
     private double taxRate;
 
+    public Cart(){}
+
     /**
      * Add a new CartItem to the CartPage
      * @param tRate - the cart tax rate in percentage form i.e 0.13 for 13%

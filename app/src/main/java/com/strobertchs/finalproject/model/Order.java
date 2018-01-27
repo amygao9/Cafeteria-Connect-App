@@ -1,8 +1,10 @@
 package com.strobertchs.finalproject.model;
 
-import java.time.LocalDateTime;
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Models an item in a shopping cart.
@@ -17,22 +19,23 @@ public class Order {
     /**
      * The order number
      */
-    private String orderNumber;
+    private String orderStatus;
     /**
      * the user who places the order
      */
-    private User orderUser;
+    private String orderUser;
     /**
      * the time of the order to be placed
      */
+    @Exclude
     private Date orderTime;
 
     public Order() {
     }
 
-    public Order(ArrayList<CartItem> cartItems, String orderNumber, User orderUser, Date orderTime) {
+    public Order(ArrayList<CartItem> cartItems, String orderNumber, String orderUser, Date orderTime) {
         this.cartItems = cartItems;
-        this.orderNumber = orderNumber;
+        this.orderStatus = orderNumber;
         this.orderUser = orderUser;
         this.orderTime = orderTime;
     }
@@ -57,31 +60,31 @@ public class Order {
      * Get order number
      * @return order number
      */
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
     /**
      * Set order number
-     * @param orderNumber
+     * @param orderStatus
      */
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     /**
      * Get user of the order
      * @return User
      */
-    public User getOrderUser() {
+    public String getOrderUser() {
         return orderUser;
     }
 
     /**
      * Set user of the order
-     * @param orderUser
+     * @param orderUser String
      */
-    public void setOrderUser(User orderUser) {
+    public void setOrderUser(String orderUser) {
         this.orderUser = orderUser;
     }
 
@@ -99,5 +102,18 @@ public class Order {
      */
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
+    }
+
+    /**
+     * Get product name list of this order
+     * @return List of product names
+     */
+    @Exclude
+    public List<String> getProductNameList(){
+        List<String> prodNameList = new ArrayList<>();
+        for(int i = 0; i < this.cartItems.size(); i++){
+            prodNameList.add(cartItems.get(i).getProductName());
+        }
+        return prodNameList;
     }
 }

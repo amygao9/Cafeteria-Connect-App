@@ -1,5 +1,7 @@
 package com.strobertchs.finalproject.model;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by jenny on 2018-01-21.
  */
@@ -10,6 +12,8 @@ public class Food extends Product {
      * Ingredients in the product
      */
     private String ingredients;
+
+    public Food(){}
 
     /**
      * Constructor
@@ -46,6 +50,7 @@ public class Food extends Product {
      * Overrides getSubDescription in superclass
      * @return Product ID and the main ingredients
      */
+    @Exclude
     public String getSubDescription()
     {
         return "ID: " + this.getProductID() + "\nMain ingredients include: " + ingredients;

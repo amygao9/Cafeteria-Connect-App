@@ -1,4 +1,6 @@
-package com.strobertchs.finalproject;
+package com.strobertchs.finalproject.utils;
+
+import com.strobertchs.finalproject.R;
 
 /**
  * Constants for this project.
@@ -19,4 +21,8 @@ public class Constants {
             R.drawable.desserts,
             R.drawable.drinks
     };
+    public static String VALID_EMAIL_SERVER = "@ycdsbk12.ca";
+    public static String CAFETERIA_STAFF_PASSWORD = "0000";
+    public static String ORDER_OPENED = "OPENED";
+    public static String ORDER_CLOSED = "CLOSED";
 }

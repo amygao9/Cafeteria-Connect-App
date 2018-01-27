@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-smallcaps"
             android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-            android:textSize="30dp" />
+            android:textSize="20dp" />
 
         <Button
             android:id="@+id/orderReady"
