@@ -16,8 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.strobertchs.finalproject.model.SavedUsers;
 import com.strobertchs.finalproject.model.User;
-
-import io.paperdb.Paper;
+import com.strobertchs.finalproject.utils.Constants;
+import com.strobertchs.finalproject.utils.ViewUtils;
 
 public class StudentSignUp extends AppCompatActivity {
 
@@ -32,12 +32,10 @@ public class StudentSignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_sign_up);
-        //Initiate Paper
-        Paper.init(this);
 
         // Initiate Firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user = database.getReference("User");
+        final DatabaseReference usersRef = database.getReference("User");
 
         editFirstName = (EditText) findViewById(R.id.Name);
         editLastName = (EditText) findViewById(R.id.LastName);
@@ -48,44 +46,54 @@ public class StudentSignUp extends AppCompatActivity {
         editLoginButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String txtEmail = editEmail.getText().toString().trim();
+                final String txtFirstName = editFirstName.getText().toString().trim();
+                final String txtLastName = editLastName.getText().toString().trim();
+                final String txtPassword = editPassword.getText().toString().trim();
+
+                //Validate first name and last name
+                if(txtFirstName.equals("") || txtLastName.equals("")) {
+                    Toast.makeText(StudentSignUp.this, "Please fill out your name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Validate email address
+                if((txtEmail.length() <= Constants.VALID_EMAIL_SERVER.length())||
+                        !txtEmail.toLowerCase().endsWith(Constants.VALID_EMAIL_SERVER.toLowerCase())) {
+                    Toast.makeText(StudentSignUp.this, "Please use your school email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Validate password
+                if(txtPassword.equals("")){
+                    Toast.makeText(StudentSignUp.this, "Please enter a password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                //Save into Firebase database
                 final ProgressDialog mDialog = new ProgressDialog(StudentSignUp.this);
                 mDialog.setMessage("Please wait a moment...");
                 mDialog.show();
 
-                table_user.addValueEventListener(new ValueEventListener() {
+                usersRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mDialog.dismiss();
 
-                        if(!editFirstName.getText().toString().equals("") && !editLastName.getText().toString().equals("")
-                                && editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11)
-                                .equals("ycdsbk12.ca") && !editPassword.getText().toString().equals("")) {
-                            user = new User(editEmail.getText().toString(), editFirstName.getText().toString(), editLastName.getText().toString(), editPassword.getText().toString());
-                            table_user.child(editLastName.getText().toString() + "," + editFirstName.getText().toString()).setValue(user);
+                        if(!txtFirstName.equals("") &&
+                                !txtLastName.equals("") &&
+                                (txtEmail.length()>Constants.VALID_EMAIL_SERVER.length()) &&
+                                txtEmail.toLowerCase().endsWith(Constants.VALID_EMAIL_SERVER.toLowerCase()) &&
+                                !txtPassword.equals("")) {
+                            user = new User(txtEmail, txtFirstName, txtLastName, txtPassword);
+                            usersRef.child(ViewUtils.encodeEmailAddress(txtEmail)).setValue(user);
+
                             Toast.makeText(StudentSignUp.this, "Registration successful!", Toast.LENGTH_SHORT).show();
 
                             // Save user and password
-                            SavedUsers.currentUser = user;
-                            Paper.book().write(SavedUsers.FIRSTNAME, editFirstName.getText().toString());
-                            Paper.book().write(SavedUsers.LASTNAME, editLastName.getText().toString());
-                            Paper.book().write(SavedUsers.USER, editLastName.getText().toString() + "," + editFirstName.getText().toString());
+                            SavedUsers.saveCurrentUser(user);
 
+                            //Start Home page
                             Intent i = new Intent(StudentSignUp.this, Home.class);
                             startActivity(i);
                         }
-
-                        else if(editFirstName.getText().toString().equals("") || editLastName.getText().toString().equals("")) {
-                            Toast.makeText(StudentSignUp.this, "Please fill out your name", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else if(!editEmail.getText().toString().substring(editEmail.getText().toString().length() - 11).equals("ycdsbk12.ca")) {
-                            Toast.makeText(StudentSignUp.this, "Please use your school email", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else if(editPassword.getText().toString().equals("")){
-                            Toast.makeText(StudentSignUp.this, "Please enter a password", Toast.LENGTH_SHORT).show();
-                        }
-
                     }
 
                     @Override

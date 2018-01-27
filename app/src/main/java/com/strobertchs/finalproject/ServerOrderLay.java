@@ -15,12 +15,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import com.strobertchs.finalproject.adapter.ExpandableListAdapter;
 import com.strobertchs.finalproject.model.Order;
-import com.strobertchs.finalproject.model.SavedUsers;
-import com.strobertchs.finalproject.model.CartItem;
+import com.strobertchs.finalproject.utils.ViewUtils;
 
 public class ServerOrderLay extends AppCompatActivity {
 
@@ -32,15 +34,12 @@ public class ServerOrderLay extends AppCompatActivity {
     Button orderReady;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference order = database.getReference("Orders");
+    final DatabaseReference ordersRef = database.getReference("Orders");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server_order_lay);
-
-        orderReady = (Button) findViewById(R.id.orderReady);
-        orderReady.setFocusable(false);
 
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
@@ -108,49 +107,51 @@ public class ServerOrderLay extends AppCompatActivity {
             }
         });
 
-        orderReady.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     /*
      * Preparing the list data
      */
-    private void prepareListData() {
+    public void prepareListData() {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
-        order.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Order order = dataSnapshot.child(SavedUsers.ORDERNUM).getValue(Order.class);
-                listDataHeader.add(SavedUsers.ORDERNUM);
-                List<CartItem> currentOrder = Home.SHOPPING_CART.getCartItemList();
-                //List<CartItem> currentOrder = order.getCartItems();
-                List<String> orderNameList = new ArrayList<>();
-                //List<String> orderQuantityList = new ArrayList<>();
+//        ordersRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+                ordersRef.orderByKey().startAt(ViewUtils.getTimeStampStringOfDayBeginning(new Date()))
+                        .addValueEventListener(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot ds) {
+                                        Iterator<DataSnapshot> children = ds.getChildren().iterator();
+                                        while (children.hasNext()){
+                                            DataSnapshot child = children.next();
+                                            String orderNum = child.getKey();
+                                            Order o = (Order)child.getValue(Order.class);
+                                            if(o.getOrderStatus().equals("OPENED")) {
+                                                listDataHeader.add(orderNum+","+o.getFormattedTotalPrice());
+                                                listDataChild.put(orderNum+","+o.getFormattedTotalPrice(),
+                                                        o.getProductNameCountList());
+                                            }
+                                        }
+                                        listAdapter.notifyDataSetChanged();
+                                    }
 
-                // Adding child data
-                for(int i = 0; i < currentOrder.size(); i++) {
-                    orderNameList.add(currentOrder.get(i).getProductName());
-                    //orderQuantityList.add(Integer.toString(currentOrder.get(i).getQuantity()));
-                }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                listDataChild.put(listDataHeader.get(0), orderNameList); // Header, Child data
-
-                //orderTotal.setText(request.getTotal());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                                    }
+                                }
+                        );
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         // Adding child data
         /*listDataHeader.add("User 2940");

@@ -1,8 +1,11 @@
 package com.strobertchs.finalproject.model;
 
-import java.time.LocalDateTime;
+import com.google.firebase.database.Exclude;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Models an item in a shopping cart.
@@ -17,24 +20,29 @@ public class Order {
     /**
      * The order number
      */
-    private String orderNumber;
+    private String orderStatus;
     /**
      * the user who places the order
      */
-    private User orderUser;
+    private String orderUser;
     /**
      * the time of the order to be placed
      */
-    private Date orderTime;
+    private String orderDateTime;
+    /**
+     * The list containing the collection of CartItem objects.
+     */
+    private double taxRate;
 
     public Order() {
     }
 
-    public Order(ArrayList<CartItem> cartItems, String orderNumber, User orderUser, Date orderTime) {
+    public Order(ArrayList<CartItem> cartItems, String orderNumber, String orderUser, String orderTime, double tRate) {
         this.cartItems = cartItems;
-        this.orderNumber = orderNumber;
+        this.orderStatus = orderNumber;
         this.orderUser = orderUser;
-        this.orderTime = orderTime;
+        this.orderDateTime = orderTime;
+        this.taxRate = tRate;
     }
 
     /**
@@ -57,31 +65,31 @@ public class Order {
      * Get order number
      * @return order number
      */
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getOrderStatus() {
+        return orderStatus;
     }
 
     /**
      * Set order number
-     * @param orderNumber
+     * @param orderStatus
      */
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     /**
      * Get user of the order
      * @return User
      */
-    public User getOrderUser() {
+    public String getOrderUser() {
         return orderUser;
     }
 
     /**
      * Set user of the order
-     * @param orderUser
+     * @param orderUser String
      */
-    public void setOrderUser(User orderUser) {
+    public void setOrderUser(String orderUser) {
         this.orderUser = orderUser;
     }
 
@@ -89,15 +97,92 @@ public class Order {
      * get order date time
      * @return Date
      */
-    public Date getOrderTime() {
-        return orderTime;
+    public String getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    /**
+     * Set the taxRate of the CartPage
+     * @param taxRate
+     */
+    public void setTaxRate(double taxRate)
+    {
+        this.taxRate = taxRate;
+    }
+
+    /**
+     * Get the taxRate
+     * @return taxRate - the CartPage taxRate
+     */
+    public double getTaxRate()
+    {
+        return this.taxRate;
+    }
+
+    /**
+     * Get sub total
+     * @return
+     */
+    @Exclude
+    private double getSubtotal()
+    {
+        double total = 0.0;
+        for (int i = 0; i < cartItems.size(); i ++)
+        {
+            CartItem cartItem = cartItems.get(i);
+            total += cartItem.getPrice();
+        }
+        return total;
+    }
+
+    /**
+     * Get formatted sub total price
+     * @return String
+     */
+    @Exclude
+    public String getFormattedSubTotal(){
+        return NumberFormat.getCurrencyInstance().format(this.getSubtotal());
+    }
+
+    /**
+     * Get formatted total tax
+     * @return String
+     */
+    @Exclude
+    public String getFormattedTotalTax(){
+        double totalTax = this.getSubtotal() * taxRate;
+        return NumberFormat.getCurrencyInstance().format(totalTax);
+    }
+
+    /**
+     * Get formatted total price
+     * @return String
+     */
+    @Exclude
+    public String getFormattedTotalPrice(){
+
+        return NumberFormat.getCurrencyInstance().format(this.getSubtotal() * (1 + taxRate));
     }
 
     /**
      * Set order Date time
-     * @param orderTime Date
+     * @param orderDateTime Date
      */
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+    public void setOrderDateTime(String orderDateTime) {
+        this.orderDateTime = orderDateTime;
+    }
+
+    /**
+     * Get product name and count list of this order
+     * @return List of product names
+     */
+    @Exclude
+    public List<String> getProductNameCountList(){
+        List<String> prodNameCountList = new ArrayList<>();
+        for(int i = 0; i < this.cartItems.size(); i++){
+            CartItem ci = cartItems.get(i);
+            prodNameCountList.add(ci.getProductName()+","+ci.getQuantity());
+        }
+        return prodNameCountList;
     }
 }

@@ -1,12 +1,13 @@
 package com.strobertchs.finalproject;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.strobertchs.finalproject.messaging.CafeteriaFirebaseInstanceIdService;
 import com.strobertchs.finalproject.model.SavedUsers;
 
 import io.paperdb.Paper;
@@ -24,7 +25,7 @@ public class FinalProject extends AppCompatActivity {
 
         final String firstName = Paper.book().read(SavedUsers.FIRSTNAME);
         final String lastName = Paper.book().read(SavedUsers.LASTNAME);
-        final String username = Paper.book().read(SavedUsers.USER);
+        final String username = Paper.book().read(SavedUsers.USERNAME);
 
         studentButton = (Button) findViewById(R.id.studentButton);
         staffButton = (Button) findViewById(R.id.staffButton);
@@ -39,7 +40,7 @@ public class FinalProject extends AppCompatActivity {
                     }
                 }
                 else {
-                    Intent i = new Intent(FinalProject.this, StudentSignUp.class);
+                    Intent i = new Intent(FinalProject.this, StudentSignIn.class);
                     startActivity(i);
                 }
             }
@@ -52,7 +53,6 @@ public class FinalProject extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
 
         //if(firstName != null && lastName != null)
         //{

@@ -1,31 +1,21 @@
 package com.strobertchs.finalproject;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.strobertchs.finalproject.adapter.MainMenuAdapter;
 import com.strobertchs.finalproject.model.Cart;
 import com.strobertchs.finalproject.model.SavedUsers;
-
-import io.paperdb.Paper;
+import com.strobertchs.finalproject.utils.Constants;
 
 /**
  * Home page is displayed after student successfully signed in.
@@ -60,7 +50,7 @@ public class Home extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set user on home header
-        mainMenuAdapter = new MainMenuAdapter(this, Constants.MAIN_MENU_ITEMS, Constants.MAIN_MENU_IMAGE_IDs);
+        mainMenuAdapter = new MainMenuAdapter(this, this, Constants.MAIN_MENU_ITEMS, Constants.MAIN_MENU_IMAGE_IDs);
         mainMenuListView = (ListView) findViewById(R.id.menuListView);
         mainMenuListView.setAdapter(mainMenuAdapter);
 
@@ -126,7 +116,7 @@ public class Home extends AppCompatActivity
         }
         else if (id == R.id.nav_log_out)
         {
-            SavedUsers.currentUser = null;
+            SavedUsers.deleteCurrentUser();
             Intent i = new Intent(this, new FinalProject().getClass());
             startActivity(i);
         }
@@ -134,71 +124,6 @@ public class Home extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    /**
-     * MainMenuAdapter for rendering ListView menuListView.
-     */
-    public class MainMenuAdapter extends BaseAdapter{
-        String [] menuItemList;
-        Context context;
-        int [] imageId;
-
-        public MainMenuAdapter(Home mainActivity, String[] mList, int[] mImageIds) {
-            menuItemList = mList;
-            context = mainActivity;
-            imageId = mImageIds;
-        }
-
-        @Override
-        public int getCount() {
-            return menuItemList.length;
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return menuItemList[position];
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        public class Holder
-        {
-            TextView menuItemName;
-            ImageView menuImage;
-            public void populateHolder(View view){
-                menuItemName=(TextView) view.findViewById(R.id.menuItemName);
-                menuImage=(ImageView) view.findViewById(R.id.menuImage);
-            }
-        }
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            Holder holder=new Holder();
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.menu_item, parent, false);
-            }
-
-            holder.populateHolder(convertView);
-
-            holder.menuItemName.setText(menuItemList[position]);
-            Picasso.with(context).load(imageId[position]).into(holder.menuImage);
-
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = null;
-                    i = new Intent(context, SelectedMenu.class);
-                    i.putExtra("selectedMainMenu", menuItemList[position]);
-                    startActivity(i);
-                }
-            });
-            return convertView;
-        }
-
     }
 
 }

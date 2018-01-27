@@ -1,4 +1,6 @@
 package com.strobertchs.finalproject.model;
+import com.google.firebase.database.Exclude;
+
 import java.text.NumberFormat;
 
 public class Product
@@ -6,29 +8,30 @@ public class Product
     /**
      * The Product name
      */
-    private String name;
+    protected String name;
     /**
      * Represents the count of Product objects instantiated. Used to set productID
      */
-    private static int product_count = 0;
+    protected static int product_count = 0;
     /**
      * The unique identifier of the product. Based on product_count
      */
-    private String productID;
+    protected String productID;
     /**
      * The Product unit price (cost of a single item of the Product)
      */
-    private double unitPrice;
+    protected double unitPrice;
 
     /**
      * The category of the product, the subclass
      */
-    private String category;
+    protected String category;
     /**
      * The product's image ID
      */
-    private int imageId;
+    protected int imageId;
 
+    public Product(){}
 
     /**
      * Create a new Product instance.
@@ -90,9 +93,18 @@ public class Product
     }
 
     /**
+     * Set product Id.
+     * @param pId String
+     */
+    public void setProductID(String pId){
+        this.productID = pId;
+    }
+
+    /**
      * Gets a the unit price in currency format $D.DD i.e $9.99.
      * @return The unit price in currency string format
      */
+    @Exclude
     public String getFormattedUnitPrice()
     {
         return NumberFormat.getCurrencyInstance().format(unitPrice);
@@ -138,6 +150,7 @@ public class Product
      * A description that includes the product id and unit price in the format i.e "ID: 5 Unit Price: $9.99"
      * @return the sub-description
      */
+    @Exclude
     public String getSubDescription()
     {
         return "ID: " + productID;

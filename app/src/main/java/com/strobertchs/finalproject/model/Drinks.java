@@ -1,5 +1,7 @@
 package com.strobertchs.finalproject.model;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by jenny on 2018-01-21.
  */
@@ -9,6 +11,8 @@ public class Drinks extends Product {
      * The type of drink - hot or cold
      */
     private String drinkType;
+
+    public Drinks(){}
 
     /**
      * Constructor
@@ -43,6 +47,7 @@ public class Drinks extends Product {
      * Gives subdescription specific to drink - overrides method from super class
      * @return String that includes Product ID and drink type
      */
+    @Exclude
     public String getSubDescription()
     {
         return "ID: " + this.getProductID() + "\n" + this.drinkType;
