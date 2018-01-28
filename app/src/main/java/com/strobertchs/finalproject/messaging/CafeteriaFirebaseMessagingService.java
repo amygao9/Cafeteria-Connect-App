@@ -1,30 +1,31 @@
 package com.strobertchs.finalproject.messaging;
 
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.strobertchs.finalproject.CartPage;
 import com.strobertchs.finalproject.NotificationPage;
 import com.strobertchs.finalproject.R;
-
 
 /**
  * Created by jenny on 2018-01-26.
  */
 
 public class CafeteriaFirebaseMessagingService extends FirebaseMessagingService {
-
 
     /**
      * Called when message is received.
@@ -95,8 +96,8 @@ public class CafeteriaFirebaseMessagingService extends FirebaseMessagingService 
         intent.putExtra("title", dataTitle);
         intent.putExtra("message", dataMessage);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
-                intent, PendingIntent.FLAG_ONE_SHOT);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+//                intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
@@ -107,12 +108,33 @@ public class CafeteriaFirebaseMessagingService extends FirebaseMessagingService 
                         .setContentText(dataMessage)
                         //.setAutoCancel(true)
                         //.setSound(defaultSoundUri)
-                        .setPriority(Notification.PRIORITY_MAX)
-                        .setContentIntent(pendingIntent);
+                        .setPriority(Notification.PRIORITY_MAX);
 
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.getApplicationContext());
+//        stackBuilder.addNextIntent(intent);
+//        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
+//                0,
+//                PendingIntent.FLAG_UPDATE_CURRENT
+//        );
+//        notificationBuilder.setContentIntent(resultPendingIntent);
+//                        .setContentIntent(pendingIntent);
+//        showDiaglog(dataTitle, dataMessage);
+
+
+        startActivity(intent);
         // 0 is id of notification
-        notificationManager.notify(0, notificationBuilder.build());
+//        notificationManager.notify(0, notificationBuilder.build());
     }
 
+    private void showDiaglog(String title, String msg){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this.getApplicationContext());
+        dialog.setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialoginterface, int i) {
+
+                    }
+                }).show();
+    }
 
 }

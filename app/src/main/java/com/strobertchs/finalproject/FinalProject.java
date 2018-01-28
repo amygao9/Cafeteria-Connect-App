@@ -3,6 +3,7 @@ package com.strobertchs.finalproject;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,8 +14,8 @@ import com.strobertchs.finalproject.model.SavedUsers;
 import io.paperdb.Paper;
 
 public class FinalProject extends AppCompatActivity {
-    Button studentButton;
-    Button staffButton;
+    CardView studentButton;
+    CardView staffButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,8 @@ public class FinalProject extends AppCompatActivity {
         final String lastName = Paper.book().read(SavedUsers.LASTNAME);
         final String username = Paper.book().read(SavedUsers.USERNAME);
 
-        studentButton = (Button) findViewById(R.id.studentButton);
-        staffButton = (Button) findViewById(R.id.staffButton);
+        studentButton = (CardView) findViewById(R.id.studentButton);
+        staffButton = (CardView) findViewById(R.id.staffButton);
 
         studentButton.setOnClickListener(new View.OnClickListener() {
             @Override

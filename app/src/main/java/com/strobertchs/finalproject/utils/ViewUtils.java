@@ -43,9 +43,7 @@ public class ViewUtils {
      * @return String
      */
     public static String getTimeStampStringOfDayBeginning(Date date) {
-
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyyMMdd000000000");
-
         return dateFormatter.format(date);
     }
 }

@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-
         <!-- [START fcm_default_icon] -->
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more. -->
@@ -27,7 +26,6 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id"/>
         <!-- [END fcm_default_channel] -->
-
 
         <activity android:name=".FinalProject">
             <intent-filter>
@@ -58,6 +56,8 @@
         <activity android:name=".StudentSignUp"
             android:label="StudentSignUp"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".NotificationPage"
+            android:label="NotificationPage" />
 
         <!-- [START firebase_service] -->
         <service

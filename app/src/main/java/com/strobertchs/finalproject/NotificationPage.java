@@ -2,6 +2,8 @@ package com.strobertchs.finalproject;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -46,16 +48,18 @@ public class NotificationPage extends AppCompatActivity {
             showAlertDialog();
 
         }
-
-        title = (EditText) findViewById(R.id.title);
-        message = (EditText) findViewById(R.id.message);
     }
 
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Message");
-        builder.setMessage("title: " + dataTitle + "\n" + "message: " + dataMessage);
-        builder.setPositiveButton("OK", null);
+        builder.setTitle(dataTitle);
+        builder.setMessage(dataMessage);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialoginterface, int i) {
+                Intent intent = new Intent(NotificationPage.this, FinalProject.class);
+                startActivity(intent);
+            }
+        });
         builder.show();
     }
 }

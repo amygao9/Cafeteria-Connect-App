@@ -1,10 +1,8 @@
 package com.strobertchs.finalproject.model;
 
-
 import com.google.firebase.database.Exclude;
 
 import java.text.NumberFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,20 +28,16 @@ public class Order {
     /**
      * the time of the order to be placed
      */
-
     private String orderDateTime;
     /**
      * The list containing the collection of CartItem objects.
      */
     private double taxRate;
 
-
     public Order() {
     }
 
-
     public Order(ArrayList<CartItem> cartItems, String orderNumber, String orderUser, String orderTime, double tRate) {
-
         this.cartItems = cartItems;
         this.orderStatus = orderNumber;
         this.orderUser = orderUser;
@@ -190,18 +184,5 @@ public class Order {
             prodNameCountList.add(ci.getProductName()+","+ci.getQuantity());
         }
         return prodNameCountList;
-    }
-
-    /**
-     * Get product name list of this order
-     * @return List of product names
-     */
-    @Exclude
-    public List<String> getProductNameList(){
-        List<String> prodNameList = new ArrayList<>();
-        for(int i = 0; i < this.cartItems.size(); i++){
-            prodNameList.add(cartItems.get(i).getProductName());
-        }
-        return prodNameList;
     }
 }

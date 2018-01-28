@@ -1,6 +1,5 @@
 package com.strobertchs.finalproject.messaging;
 
-
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
@@ -11,13 +10,11 @@ import com.strobertchs.finalproject.model.SavedUsers;
 import com.strobertchs.finalproject.model.User;
 import com.strobertchs.finalproject.utils.ViewUtils;
 
-
 /**
  * Created by jenny on 2018-01-26.
  */
 
 public class CafeteriaFirebaseInstanceIdService extends FirebaseInstanceIdService {
-
 
     @Override
     public void onTokenRefresh() {
@@ -47,5 +44,4 @@ public class CafeteriaFirebaseInstanceIdService extends FirebaseInstanceIdServic
             userTokensRef.child(ViewUtils.encodeEmailAddress(user.getEmail())).setValue(token);
         }
     }
-
 }
