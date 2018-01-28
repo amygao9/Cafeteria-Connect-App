@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.strobertchs.finalproject.adapter.CartAdapter;
 import com.strobertchs.finalproject.messaging.CafeteriaFirebaseInstanceIdService;
+
 import com.strobertchs.finalproject.model.Cart;
 import com.strobertchs.finalproject.model.Order;
 import com.strobertchs.finalproject.model.SavedUsers;
@@ -85,14 +87,17 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
 
                 //prepare order
                 User orderUser = SavedUsers.getCurrentUser();
+
                 Order o = new Order(Home.SHOPPING_CART.getCartItemList(), Constants.ORDER_OPENED, orderUser.getEmail(),
                         ViewUtils.getTimeStampString(new Date()), Home.SHOPPING_CART.getTaxRate());
                 String orderNum = o.getOrderDateTime();
+
 
                 //Submit order to database
                 database = FirebaseDatabase.getInstance();
                 ordersRef = database.getReference("Orders");
                 ordersRef.child(orderNum).setValue(o);
+
 
                 CafeteriaFirebaseInstanceIdService.sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken());
 
@@ -100,7 +105,9 @@ public class CartPage extends AppCompatActivity implements NavigationView.OnNavi
                 AlertDialog.Builder dialog = new AlertDialog.Builder(CartPage.this);
 
                 dialog.setTitle( "Order Confirmation" )
+
                         .setMessage("You will be notified once it's ready.\n Order # " + orderNum)
+
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoginterface, int i) {
                                 Intent intent = new Intent(CartPage.this, Home.class);

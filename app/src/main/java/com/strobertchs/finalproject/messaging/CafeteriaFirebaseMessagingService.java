@@ -1,5 +1,6 @@
 package com.strobertchs.finalproject.messaging;
 
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,11 +18,13 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.strobertchs.finalproject.NotificationPage;
 import com.strobertchs.finalproject.R;
 
+
 /**
  * Created by jenny on 2018-01-26.
  */
 
 public class CafeteriaFirebaseMessagingService extends FirebaseMessagingService {
+
 
     /**
      * Called when message is received.
@@ -110,5 +113,6 @@ public class CafeteriaFirebaseMessagingService extends FirebaseMessagingService 
         // 0 is id of notification
         notificationManager.notify(0, notificationBuilder.build());
     }
+
 
 }

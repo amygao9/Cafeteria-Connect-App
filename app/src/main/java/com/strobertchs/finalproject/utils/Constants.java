@@ -25,6 +25,4 @@ public class Constants {
     public static String CAFETERIA_STAFF_PASSWORD = "0000";
     public static String ORDER_OPENED = "OPENED";
     public static String ORDER_CLOSED = "CLOSED";
-    public static String FIREBASE_MESSAGING_URL="https://fcm.googleapis.com/v1/projects/";
-    public static String PROJECT_URL = "cafeteria-app-final/messages:send";
 }

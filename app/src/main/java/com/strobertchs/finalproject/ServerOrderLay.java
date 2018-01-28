@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import com.strobertchs.finalproject.adapter.ExpandableListAdapter;
 import com.strobertchs.finalproject.model.Order;
@@ -117,9 +119,11 @@ public class ServerOrderLay extends AppCompatActivity {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding child data
+
 //        ordersRef.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
+
                 ordersRef.orderByKey().startAt(ViewUtils.getTimeStampStringOfDayBeginning(new Date()))
                         .addValueEventListener(
                                 new ValueEventListener() {
@@ -130,11 +134,13 @@ public class ServerOrderLay extends AppCompatActivity {
                                             DataSnapshot child = children.next();
                                             String orderNum = child.getKey();
                                             Order o = (Order)child.getValue(Order.class);
+
                                             if(o.getOrderStatus().equals("OPENED")) {
                                                 listDataHeader.add(orderNum+","+o.getFormattedTotalPrice());
                                                 listDataChild.put(orderNum+","+o.getFormattedTotalPrice(),
                                                         o.getProductNameCountList());
                                             }
+
                                         }
                                         listAdapter.notifyDataSetChanged();
                                     }
@@ -145,6 +151,7 @@ public class ServerOrderLay extends AppCompatActivity {
                                     }
                                 }
                         );
+
 //            }
 //
 //            @Override
@@ -153,29 +160,6 @@ public class ServerOrderLay extends AppCompatActivity {
 //            }
 //        });
 
-        // Adding child data
-        /*listDataHeader.add("User 2940");
-        listDataHeader.add("User123");
-        listDataHeader.add("User940");
 
-        // Adding child data
-        List<String> User2940 = new ArrayList<String>();
-        User2940.add("San Pellegrino");
-        User2940.add("Rose Pasta");
-
-
-        List<String> User123 = new ArrayList<String>();
-        User123.add("The Conjuring");
-        User123.add("Despicable Me 2");
-
-
-        List<String> User940 = new ArrayList<String>();
-        User940.add("2 Guns");
-        User940.add("The Smurfs 2");
-
-
-        listDataChild.put(listDataHeader.get(0), User2940); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), User123);
-        listDataChild.put(listDataHeader.get(2), User940);*/
     }
 }
